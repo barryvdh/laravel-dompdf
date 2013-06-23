@@ -28,7 +28,7 @@ class PDF{
     /**
      * Load the default config and load the local settings
      */
-    public function loadConfig(){
+    protected function loadConfig(){
 
         define("DOMPDF_ENABLE_REMOTE", true);
         define("DOMPDF_ENABLE_AUTOLOAD", false);
