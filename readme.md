@@ -2,7 +2,7 @@
 
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
-    "barryvdh/l4-dompdf": "dev-master"
+    "barryvdh/laravel-dompdf": "dev-master"
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php
 
@@ -25,7 +25,7 @@ Or use the facade:
 
 You can chain the methods:
 
-    return PDF::loadFile(public_path().'/myfile.html')->save(storage_path().'/pdf/my_stored_file.pdf')->stream('download.pdf');
+    return PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
 
 You can change the orientation and paper size, and hide or show errors (by default, errors are shown when debug is on)
 
