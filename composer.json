@@ -1,0 +1,23 @@
+{
+    "name": "barryvdh/laravel-dompdf",
+    "description": "A DOMPDF Wrapper for Laravel",
+    "authors": [
+        {
+            "name": "Barry vd. Heuvel",
+            "email": "barryvdh@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x",
+        "dompdf/dompdf": "dev-master",
+        "phenx/php-font-lib": "0.2.*"
+    },
+
+    "autoload": {
+        "psr-0": {
+            "Barryvdh\\DomPDF": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
