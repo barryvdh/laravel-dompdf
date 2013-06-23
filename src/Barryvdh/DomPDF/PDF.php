@@ -21,8 +21,12 @@ class PDF{
     public function __construct(){
 
         $this->loadConfig();
-        $this->dompdf = new \DOMPDF();
 
+
+    }
+
+    public function init(){
+        $this->dompdf = new \DOMPDF();
     }
 
     /**
@@ -88,6 +92,7 @@ class PDF{
      * @return static
      */
     public function loadHTML($string){
+        $this->init();
         $string = $this->convertEntities($string);
         $this->dompdf->load_html($string);
         $this->rendered = false;
@@ -101,6 +106,7 @@ class PDF{
      * @return static
      */
     public function loadFile($file){
+        $this->init();
         $this->dompdf->load_html_file($file);
         $this->rendered = false;
         return $this;
@@ -115,7 +121,6 @@ class PDF{
      * @return static
      */
     public function loadView($view, $data = array(), $mergeData = array()){
-
         $html = \View::make($view, $data, $mergeData);
         $this->loadHTML($html);
         return $this;
@@ -125,10 +130,9 @@ class PDF{
      * Render the PDF
      */
     protected function render(){
-        if ( isset($this->base_path) ) {
-            $this->dompdf->set_base_path($this->basePath);
+        if(!$this->dompdf){
+            \App::abort('DOMPDF not created yet');
         }
-
         $this->dompdf->set_paper($this->paper, $this->orientation);
 
         $this->dompdf->render();

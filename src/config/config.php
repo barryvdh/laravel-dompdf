@@ -26,5 +26,4 @@ return array(
     'paper' => 'a4',
 
 
-
 );
