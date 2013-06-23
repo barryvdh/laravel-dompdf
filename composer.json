@@ -1,6 +1,8 @@
 {
     "name": "barryvdh/laravel-dompdf",
     "description": "A DOMPDF Wrapper for Laravel",
+    "license": "MIT",
+    "keywords": ["laravel", "dompdf", "pdf"],
     "authors": [
         {
             "name": "Barry vd. Heuvel",
