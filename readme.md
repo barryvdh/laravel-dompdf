@@ -33,7 +33,7 @@ You can change the orientation and paper size, and hide or show errors (by defau
 
 You can  publish the config-file to change some settings (default paper etc).
 
-    php artisan config:publish barryvdh/l4-dompdf
+    php artisan config:publish barryvdh/laravel-dompdf
 
 ### License
 
