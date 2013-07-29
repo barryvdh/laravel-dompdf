@@ -20,22 +20,9 @@ class PDF{
 
     public function __construct(){
 
-        $this->loadConfig();
-
-    }
-
-    public function init(){
-        $this->dompdf = new \DOMPDF();
-    }
-
-    /**
-     * Load the default config and load the local settings
-     */
-    protected function loadConfig(){
-
-        define("DOMPDF_ENABLE_REMOTE", true);
-        define("DOMPDF_ENABLE_AUTOLOAD", false);
-        define("DOMPDF_CHROOT", base_path());
+        $this->define("DOMPDF_ENABLE_REMOTE", true);
+        $this->define("DOMPDF_ENABLE_AUTOLOAD", false);
+        $this->define("DOMPDF_CHROOT", base_path());
 
         $file = \Config::get('laravel-dompdf::config_file') ?: base_path() .'/vendor/dompdf/dompdf/dompdf_config.inc.php';
 
@@ -49,7 +36,10 @@ class PDF{
 
         $this->paper = \Config::get('laravel-dompdf::paper') ?: 'a4';
         $this->orientation = \Config::get('laravel-dompdf::orientation') ?: 'portrait';
+
     }
+
+
 
     /**
      * Set the paper size (default A4)
@@ -125,32 +115,7 @@ class PDF{
         return $this;
     }
 
-    /**
-     * Render the PDF
-     */
-    protected function render(){
-        if(!$this->dompdf){
-            \App::abort('DOMPDF not created yet');
-        }
-        $this->dompdf->set_paper($this->paper, $this->orientation);
 
-        $this->dompdf->render();
-
-        if ( $this->showWarnings ) {
-            global $_dompdf_warnings;
-            if(count($_dompdf_warnings)){
-                $warnings = '';
-                foreach ($_dompdf_warnings as $msg){
-                    $warnings .= $msg . "\n";
-                }
-                // $warnings .= $this->dompdf->get_canvas()->get_cpdf()->messages;
-                if(!empty($warnings)){
-                    \App::abort(500, $warnings);
-                }
-            }
-        }
-        $this->rendered = true;
-    }
 
     /**
      * Output the PDF as a string.
@@ -193,6 +158,43 @@ class PDF{
      */
     public function stream($filename = 'document.pdf' ){
         return $this->makeResponse($filename, 'inline');
+    }
+
+    protected function define($name, $value){
+        if ( !defined($name) ) {
+            define($name, $value);
+        }
+    }
+
+    protected function init(){
+        $this->dompdf = new \DOMPDF();
+    }
+
+    /**
+     * Render the PDF
+     */
+    protected function render(){
+        if(!$this->dompdf){
+            \App::abort('DOMPDF not created yet');
+        }
+        $this->dompdf->set_paper($this->paper, $this->orientation);
+
+        $this->dompdf->render();
+
+        if ( $this->showWarnings ) {
+            global $_dompdf_warnings;
+            if(count($_dompdf_warnings)){
+                $warnings = '';
+                foreach ($_dompdf_warnings as $msg){
+                    $warnings .= $msg . "\n";
+                }
+                // $warnings .= $this->dompdf->get_canvas()->get_cpdf()->messages;
+                if(!empty($warnings)){
+                    \App::abort(500, $warnings);
+                }
+            }
+        }
+        $this->rendered = true;
     }
 
     /**
