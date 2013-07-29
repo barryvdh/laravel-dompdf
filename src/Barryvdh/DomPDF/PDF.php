@@ -22,7 +22,6 @@ class PDF{
 
         $this->loadConfig();
 
-
     }
 
     public function init(){
@@ -154,16 +153,25 @@ class PDF{
     }
 
     /**
+     * Output the PDF as a string.
+     *
+     * @return string The rendered PDF as string
+     */
+    public function output(){
+        if(!$this->rendered){
+            $this->render();
+        }
+        return $this->dompdf->output();
+    }
+
+    /**
      * Save the PDF to a file
      *
      * @param $filename
      * @return static
      */
     public function save($filename){
-        if(!$this->rendered){
-            $this->render();
-        }
-        \File::put($filename, $this->dompdf->output());
+        \File::put($filename, $this->output());
         return $this;
     }
 
@@ -174,7 +182,7 @@ class PDF{
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function download($filename = 'document.pdf' ){
-        return $this->output($filename, 'attachment');
+        return $this->makeResponse($filename, 'attachment');
     }
 
     /**
@@ -184,7 +192,7 @@ class PDF{
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function stream($filename = 'document.pdf' ){
-        return $this->output($filename, 'inline');
+        return $this->makeResponse($filename, 'inline');
     }
 
     /**
@@ -194,13 +202,9 @@ class PDF{
      * @param $disposition
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function output($filename, $disposition){
-        if(!$this->rendered){
-            $this->render();
-        }
+    protected function makeResponse($filename, $disposition){
 
-        $output = $this->dompdf->output();
-
+        $output = $this->output();
 
         return \Response::make($output, 200, array(
                 'Content-Type' => 'application/pdf',
