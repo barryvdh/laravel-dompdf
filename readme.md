@@ -31,6 +31,8 @@ You can change the orientation and paper size, and hide or show errors (by defau
 
     PDF::loadHTML($html)->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->save('myfile.pdf')
 
+If you need the output as a string, you can get the rendered PDF with the output() function, so you can save/output it yourself.
+
 You can  publish the config-file to change some settings (default paper etc).
 
     php artisan config:publish barryvdh/laravel-dompdf
