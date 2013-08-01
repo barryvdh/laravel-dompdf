@@ -20,21 +20,35 @@ class PDF{
 
     public function __construct(){
 
+        $defines = \Config::get('laravel-dompdf::defines') ?: array();
+        foreach($defines as $key => $value){
+            $this->define($key, $value);
+        }
+
+        //Still load these values, in case config is not used.
         $this->define("DOMPDF_ENABLE_REMOTE", true);
         $this->define("DOMPDF_ENABLE_AUTOLOAD", false);
         $this->define("DOMPDF_CHROOT", base_path());
+        $this->define("DOMPDF_LOG_OUTPUT_FILE", storage_path() . '/logs/dompdf.html');
 
-        $file = \Config::get('laravel-dompdf::config_file') ?: base_path() .'/vendor/dompdf/dompdf/dompdf_config.inc.php';
 
-        if(file_exists($file)){
-            require_once $file;
+        $config_file = \Config::get('laravel-dompdf::config_file') ?: base_path() .'/vendor/dompdf/dompdf/dompdf_config.inc.php';
+
+        if(file_exists($config_file)){
+            require_once $config_file;
         }else{
-            \App::abort('500', "$file cannot be loaded, please configure correct config file");
+            \App::abort('500', "$config_file cannot be loaded, please configure correct config file (config.php: config_file");
         }
 
         $this->showWarnings = \Config::get('debug');
 
-        $this->paper = \Config::get('laravel-dompdf::paper') ?: 'a4';
+        //To prevent old configs from not working..
+        if(\Config::has('laravel-dompdf::paper')){
+            $this->paper = \Config::get('laravel-dompdf::paper');
+        }else{
+            $this->paper = DOMPDF_DEFAULT_PAPER_SIZE;
+        }
+
         $this->orientation = \Config::get('laravel-dompdf::orientation') ?: 'portrait';
 
     }
@@ -45,10 +59,14 @@ class PDF{
      * Set the paper size (default A4)
      *
      * @param string $paper
+     * @param string $orientation
      * @return $this
      */
-    public function setPaper($paper){
+    public function setPaper($paper, $orientation=null){
         $this->paper = $paper;
+        if($orientation){
+            $this->orientation = $orientation;
+        }
         return $this;
     }
 
@@ -177,6 +195,7 @@ class PDF{
         if(!$this->dompdf){
             \App::abort('DOMPDF not created yet');
         }
+
         $this->dompdf->set_paper($this->paper, $this->orientation);
 
         $this->dompdf->render();
