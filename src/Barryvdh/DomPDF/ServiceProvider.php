@@ -10,7 +10,7 @@ class ServiceProvider extends IlluminateServiceProvider {
 	 *
 	 * @var bool
 	 */
-	protected $defer = false;
+	protected $defer = true;
 
 	/**
 	 * Bootstrap the application events.
