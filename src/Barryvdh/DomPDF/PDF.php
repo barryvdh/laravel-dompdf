@@ -165,7 +165,11 @@ class PDF{
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function download($filename = 'document.pdf' ){
-        return $this->makeResponse($filename, 'attachment');
+        $output = $this->output();
+        return \Response::make($output, 200, array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' =>  'attachment; filename="'.$filename.'"'
+            ));
     }
 
     /**
@@ -175,7 +179,13 @@ class PDF{
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function stream($filename = 'document.pdf' ){
-        return $this->makeResponse($filename, 'inline');
+        $that = $this;
+        return \Response::stream(function() use($that){
+                echo $that->output();
+            }, 200, array(
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' =>  'inline; filename="'.$filename.'"',
+            ));
     }
 
     protected function define($name, $value){
@@ -216,29 +226,6 @@ class PDF{
         $this->rendered = true;
     }
 
-    /**
-     * Create a Symfony Response (attachment/inline)
-     *
-     * @param $filename
-     * @param $disposition
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function makeResponse($filename, $disposition){
-
-        $output = $this->output();
-
-        return \Response::make($output, 200, array(
-                'Content-Type' => 'application/pdf',
-                'Content-Description' => 'File Transfer',
-                'Content-Transfer-Encoding' => 'binary',
-                'Content-Disposition' => $disposition . '; filename="'.$filename.'"',
-                'Content-Length' =>  strlen($output),
-                'Accept-Ranges' => 'bytes',
-                'Pragma' => 'public',
-                'Expires' => 0,
-                'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0'
-            ));
-    }
 
     protected function convertEntities($subject){
         $entities = array(
