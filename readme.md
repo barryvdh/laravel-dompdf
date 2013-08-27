@@ -37,6 +37,11 @@ You can  publish the config-file to change some settings (default paper etc).
 
     php artisan config:publish barryvdh/laravel-dompdf
 
+### Tip: UTF-8 support
+In your templates, set the UTF-8 Metatag:
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
 ### License
 
 This DOMPDF Wrapper for Laravel4 is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
