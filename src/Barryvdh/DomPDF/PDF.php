@@ -196,6 +196,7 @@ class PDF{
 
     protected function init(){
         $this->dompdf = new \DOMPDF();
+        $this->dompdf->set_base_path(realpath(public_path()));
     }
 
     /**
