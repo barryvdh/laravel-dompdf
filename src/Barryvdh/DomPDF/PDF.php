@@ -104,12 +104,13 @@ class PDF{
      * Load a HTML string
      *
      * @param string $string
+     * @param string $encoding Not used yet
      * @return static
      */
-    public function loadHTML($string){
+    public function loadHTML($string, $encoding = null){
         $this->init();
         $string = $this->convertEntities($string);
-        $this->dompdf->load_html($string);
+        $this->dompdf->load_html($string, $encoding);
         $this->rendered = false;
         return $this;
     }
@@ -133,11 +134,12 @@ class PDF{
      * @param string $view
      * @param array $data
      * @param array $mergeData
+     * @param string $encoding Not used yet
      * @return static
      */
-    public function loadView($view, $data = array(), $mergeData = array()){
+    public function loadView($view, $data = array(), $mergeData = array(), $encoding = null){
         $html = \View::make($view, $data, $mergeData);
-        $this->loadHTML($html);
+        $this->loadHTML($html, $encoding);
         return $this;
     }
 
