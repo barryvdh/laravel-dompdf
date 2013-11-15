@@ -54,6 +54,14 @@ class PDF{
     }
 
 
+    /**
+     * Get the DomPDF instance
+     *
+     * @return \DOMPDF
+     */
+    public function getDomPDF(){
+        return $this->dompdf;
+    }
 
     /**
      * Set the paper size (default A4)
