@@ -140,6 +140,13 @@ return array(
          */
         "DOMPDF_ENABLE_HTML5PARSER" => false,
 
+        /**
+        * Use more controller places to put the cache so you dont need to change the fonts directory permissions
+        **/
+        "DOMPDF_FONT_CACHE"         => storage_path('fonts/'),
+
+        "__DOMPDF_FONT_CACHE_FILE"  => storage_path('fonts/dompdf_font_family_cache.php'),        
+
     ),
 
 
