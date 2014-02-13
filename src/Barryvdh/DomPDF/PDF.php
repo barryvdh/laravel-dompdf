@@ -189,13 +189,11 @@ class PDF{
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function stream($filename = 'document.pdf' ){
-        $that = $this;
-        return \Response::stream(function() use($that){
-                echo $that->output();
-            }, 200, array(
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' =>  'inline; filename="'.$filename.'"',
-            ));
+        $output = $this->output();
+        return \Response::make($output, 200, array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' =>  'inline; filename="'.$filename.'"',
+        ));
     }
 
     protected function define($name, $value){
