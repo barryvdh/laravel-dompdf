@@ -13,6 +13,124 @@ return array(
     */
     'orientation' => 'portrait',
     'defines' => array(
+        /**
+         * The location of the DOMPDF font directory
+         *
+         * The location of the directory where DOMPDF will store fonts and font metrics
+         * Note: This directory must exist and be writable by the webserver process.
+         * *Please note the trailing slash.*
+         *
+         * Notes regarding fonts:
+         * Additional .afm font metrics can be added by executing load_font.php from command line.
+         *
+         * Only the original "Base 14 fonts" are present on all pdf viewers. Additional fonts must
+         * be embedded in the pdf file or the PDF may not display correctly. This can significantly
+         * increase file size unless font subsetting is enabled. Before embedding a font please
+         * review your rights under the font license.
+         *
+         * Any font specification in the source HTML is translated to the closest font available
+         * in the font directory.
+         *
+         * The pdf standard "Base 14 fonts" are:
+         * Courier, Courier-Bold, Courier-BoldOblique, Courier-Oblique,
+         * Helvetica, Helvetica-Bold, Helvetica-BoldOblique, Helvetica-Oblique,
+         * Times-Roman, Times-Bold, Times-BoldItalic, Times-Italic,
+         * Symbol, ZapfDingbats.
+         */
+        "DOMPDF_FONT_DIR" => storage_path('fonts/'), // advised by dompdf (https://github.com/dompdf/dompdf/pull/782)   
+
+        /**
+         * The location of the DOMPDF font cache directory
+         *
+         * This directory contains the cached font metrics for the fonts used by DOMPDF.
+         * This directory can be the same as DOMPDF_FONT_DIR
+         *
+         * Note: This directory must exist and be writable by the webserver process.
+         */
+        "DOMPDF_FONT_CACHE" => storage_path('fonts/'),
+
+        /**
+         * The location of a temporary directory.
+         *
+         * The directory specified must be writeable by the webserver process.
+         * The temporary directory is required to download remote images and when
+         * using the PFDLib back end.
+         */
+        "DOMPDF_TEMP_DIR" => sys_get_temp_dir(),
+
+        /**
+         * ==== IMPORTANT ====
+         *
+         * dompdf's "chroot": Prevents dompdf from accessing system files or other
+         * files on the webserver.  All local files opened by dompdf must be in a
+         * subdirectory of this directory.  DO NOT set it to '/' since this could
+         * allow an attacker to use dompdf to read any files on the server.  This
+         * should be an absolute path.
+         * This is only checked on command line call by dompdf.php, but not by
+         * direct class use like:
+         * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
+         */
+        "DOMPDF_CHROOT" => realpath(base_path()),
+
+        /**
+         * Whether to use Unicode fonts or not.
+         *
+         * When set to true the PDF backend must be set to "CPDF" and fonts must be
+         * loaded via load_font.php.
+         *
+         * When enabled, dompdf can support all Unicode glyphs. Any glyphs used in a
+         * document must be present in your fonts, however.
+         */
+        "DOMPDF_UNICODE_ENABLED" => true,
+
+        /**
+         * Whether to enable font subsetting or not.
+         */
+        "DOMPDF_ENABLE_FONTSUBSETTING" => false,
+
+        /**
+         * The PDF rendering backend to use
+         *
+         * Valid settings are 'PDFLib', 'CPDF' (the bundled R&OS PDF class), 'GD' and
+         * 'auto'. 'auto' will look for PDFLib and use it if found, or if not it will
+         * fall back on CPDF. 'GD' renders PDFs to graphic files. {@link
+         * Canvas_Factory} ultimately determines which rendering class to instantiate
+         * based on this setting.
+         *
+         * Both PDFLib & CPDF rendering backends provide sufficient rendering
+         * capabilities for dompdf, however additional features (e.g. object,
+         * image and font support, etc.) differ between backends.  Please see
+         * {@link PDFLib_Adapter} for more information on the PDFLib backend
+         * and {@link CPDF_Adapter} and lib/class.pdf.php for more information
+         * on CPDF. Also see the documentation for each backend at the links
+         * below.
+         *
+         * The GD rendering backend is a little different than PDFLib and
+         * CPDF. Several features of CPDF and PDFLib are not supported or do
+         * not make any sense when creating image files.  For example,
+         * multiple pages are not supported, nor are PDF 'objects'.  Have a
+         * look at {@link GD_Adapter} for more information.  GD support is
+         * experimental, so use it at your own risk.
+         *
+         * @link http://www.pdflib.com
+         * @link http://www.ros.co.nz/pdf
+         * @link http://www.php.net/image
+         */
+        "DOMPDF_PDF_BACKEND" => "CPDF",
+        
+        /**
+         * PDFlib license key
+         *
+         * If you are using a licensed, commercial version of PDFlib, specify
+         * your license key here.  If you are using PDFlib-Lite or are evaluating
+         * the commercial version of PDFlib, comment out this setting.
+         *
+         * @link http://www.pdflib.com
+         *
+         * If pdflib present in web server and auto or selected explicitely above,
+         * a real license code must exist!
+         */
+        //"DOMPDF_PDFLIB_LICENSE" => "your license key here",
 
         /**
          * html target media view which should be rendered into pdf.
@@ -140,11 +258,6 @@ return array(
          */
         "DOMPDF_ENABLE_HTML5PARSER" => false,
 
-        /**
-        * Use more controller places to put the cache so you dont need to change the fonts directory permissions
-        **/
-        "DOMPDF_FONT_CACHE"         => storage_path('fonts/'),
-        "DOMPDF_FONT_DIR"           => storage_path('fonts/'), // adviced by dompdf (https://github.com/dompdf/dompdf/pull/782)   
 
     ),
 
