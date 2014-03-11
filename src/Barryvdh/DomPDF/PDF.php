@@ -205,6 +205,8 @@ class PDF{
     protected function init(){
         $this->dompdf = new \DOMPDF();
         $this->dompdf->set_base_path(realpath(public_path()));
+        $canvas = \Canvas_Factory::get_instance($this->dompdf);
+        \Font_Metrics::init($canvas);
     }
 
     /**
