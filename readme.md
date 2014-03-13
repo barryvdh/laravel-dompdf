@@ -2,7 +2,7 @@
 
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
-    "barryvdh/laravel-dompdf": "dev-master"
+    "barryvdh/laravel-dompdf": "*"
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php
 
