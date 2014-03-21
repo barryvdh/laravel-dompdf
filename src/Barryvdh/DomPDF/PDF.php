@@ -138,7 +138,7 @@ class PDF{
      * @return static
      */
     public function loadView($view, $data = array(), $mergeData = array(), $encoding = null){
-        $html = \View::make($view, $data, $mergeData);
+        $html = \View::make($view, $data, $mergeData)->render();
         $this->loadHTML($html, $encoding);
         return $this;
     }
