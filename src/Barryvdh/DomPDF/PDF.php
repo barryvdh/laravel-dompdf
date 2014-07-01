@@ -1,6 +1,11 @@
 <?php
 namespace Barryvdh\DomPDF;
 
+use Exception;
+use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Http\Response;
+
 /**
  * A Laravel wrapper for DOMPDF
  *
@@ -11,48 +16,32 @@ class PDF{
 
     /** @var \DOMPDF  */
     protected $dompdf;
-    protected $rendered = false;
 
+    /** @var \Illuminate\Config\Repository  */
+    protected $config;
+
+    /** @var \Illuminate\Filesystem\Filesystem  */
+    protected $files;
+
+    /** @var \Illuminate\View\Factory  */
+    protected $view;
+
+    protected $rendered = false;
     protected $orientation;
     protected $paper;
     protected $showWarnings;
 
-
-    public function __construct(){
-
-        $defines = \Config::get('laravel-dompdf::defines') ?: array();
-        foreach($defines as $key => $value){
-            $this->define($key, $value);
-        }
-
-        //Still load these values, in case config is not used.
-        $this->define("DOMPDF_ENABLE_REMOTE", true);
-        $this->define("DOMPDF_ENABLE_AUTOLOAD", false);
-        $this->define("DOMPDF_CHROOT", base_path());
-        $this->define("DOMPDF_LOG_OUTPUT_FILE", storage_path() . '/logs/dompdf.html');
-
-
-        $config_file = \Config::get('laravel-dompdf::config_file') ?: base_path() .'/vendor/dompdf/dompdf/dompdf_config.inc.php';
-
-        if(file_exists($config_file)){
-            require_once $config_file;
-        }else{
-            \App::abort('500', "$config_file cannot be loaded, please configure correct config file (config.php: config_file");
-        }
-
-        $this->showWarnings = \Config::get('debug');
-
-        //To prevent old configs from not working..
-        if(\Config::has('laravel-dompdf::paper')){
-            $this->paper = \Config::get('laravel-dompdf::paper');
-        }else{
-            $this->paper = DOMPDF_DEFAULT_PAPER_SIZE;
-        }
-
-        $this->orientation = \Config::get('laravel-dompdf::orientation') ?: 'portrait';
-
+    /**
+     *
+     * @param \Illuminate\Config\Repository $config
+     * @param \Illuminate\Filesystem\Filesystem $files
+     * @param \Illuminate\View\Factory $view
+     */
+    public function __construct(ConfigRepository $config, Filesystem $files, /* Illuminate\View\Factory */ $view){
+        $this->config = $config;
+        $this->files = $files;
+        $this->view = $view;
     }
-
 
     /**
      * Get the DomPDF instance
@@ -138,7 +127,7 @@ class PDF{
      * @return static
      */
     public function loadView($view, $data = array(), $mergeData = array(), $encoding = null){
-        $html = \View::make($view, $data, $mergeData)->render();
+        $html = $this->view->make($view, $data, $mergeData)->render();
         $this->loadHTML($html, $encoding);
         return $this;
     }
@@ -164,7 +153,7 @@ class PDF{
      * @return static
      */
     public function save($filename){
-        \File::put($filename, $this->output());
+        $this->files->put($filename, $this->output());
         return $this;
     }
 
@@ -172,11 +161,11 @@ class PDF{
      * Make the PDF downloadable by the user
      *
      * @param string $filename
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\Response
      */
     public function download($filename = 'document.pdf' ){
         $output = $this->output();
-        return \Response::make($output, 200, array(
+        return new Response($output, 200, array(
                 'Content-Type' => 'application/pdf',
                 'Content-Disposition' =>  'attachment; filename="'.$filename.'"'
             ));
@@ -186,11 +175,11 @@ class PDF{
      * Return a response with the PDF to show in the browser
      *
      * @param string $filename
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Illuminate\Http\Response
      */
     public function stream($filename = 'document.pdf' ){
         $output = $this->output();
-        return \Response::make($output, 200, array(
+        return new Response($output, 200, array(
             'Content-Type' => 'application/pdf',
             'Content-Disposition' =>  'inline; filename="'.$filename.'"',
         ));
@@ -203,6 +192,42 @@ class PDF{
     }
 
     protected function init(){
+
+        if(!is_null($this->dompdf)){
+            return; // Already intialized
+        }
+
+        $defines = $this->config->get('laravel-dompdf::defines') ?: array();
+        foreach($defines as $key => $value){
+            $this->define($key, $value);
+        }
+
+        //Still load these values, in case config is not used.
+        $this->define("DOMPDF_ENABLE_REMOTE", true);
+        $this->define("DOMPDF_ENABLE_AUTOLOAD", false);
+        $this->define("DOMPDF_CHROOT", base_path());
+        $this->define("DOMPDF_LOG_OUTPUT_FILE", storage_path() . '/logs/dompdf.html');
+
+
+        $config_file = $this->config->get('laravel-dompdf::config_file') ?: base_path() .'/vendor/dompdf/dompdf/dompdf_config.inc.php';
+
+        if(file_exists($config_file)){
+            require_once $config_file;
+        }else{
+            throw new Exception("$config_file cannot be loaded, please configure correct config file (config.php: config_file)");
+        }
+
+        $this->showWarnings = $this->config->get('debug');
+
+        //To prevent old configs from not working..
+        if($this->config->has('laravel-dompdf::paper')){
+            $this->paper = $this->config->get('laravel-dompdf::paper');
+        }else{
+            $this->paper = DOMPDF_DEFAULT_PAPER_SIZE;
+        }
+
+        $this->orientation = $this->config->get('laravel-dompdf::orientation') ?: 'portrait';
+
         $this->dompdf = new \DOMPDF();
         $this->dompdf->set_base_path(realpath(public_path()));
     }
@@ -212,7 +237,7 @@ class PDF{
      */
     protected function render(){
         if(!$this->dompdf){
-            \App::abort('DOMPDF not created yet');
+            throw new Exception('DOMPDF not created yet');
         }
 
         $this->dompdf->set_paper($this->paper, $this->orientation);
@@ -228,7 +253,7 @@ class PDF{
                 }
                 // $warnings .= $this->dompdf->get_canvas()->get_cpdf()->messages;
                 if(!empty($warnings)){
-                    \App::abort(500, $warnings);
+                    throw new Exception($warnings);
                 }
             }
         }

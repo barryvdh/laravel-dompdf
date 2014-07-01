@@ -10,7 +10,7 @@ class ServiceProvider extends IlluminateServiceProvider {
 	 *
 	 * @var bool
 	 */
-	protected $defer = false;
+	protected $defer = true;
 
 	/**
 	 * Bootstrap the application events.
@@ -31,7 +31,7 @@ class ServiceProvider extends IlluminateServiceProvider {
 	{
         $this->app['dompdf'] = $this->app->share(function($app)
             {
-                return new PDF;
+                return new PDF($app['config'], $app['files'], $app['view']);
             });
 	}
 
