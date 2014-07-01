@@ -19,7 +19,7 @@ class ServiceProvider extends IlluminateServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->package('barryvdh/laravel-dompdf');
+		$this->app['config']->package('barryvdh/laravel-dompdf', __DIR__ . '/../../config');
 	}
 
 	/**
