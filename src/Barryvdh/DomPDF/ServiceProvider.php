@@ -31,7 +31,29 @@ class ServiceProvider extends IlluminateServiceProvider {
 	{
         $this->app['dompdf'] = $this->app->share(function($app)
             {
-                return new PDF($app['config'], $app['files'], $app['view']);
+
+                $basePath = $app['path.base'];
+                $defines = $app['config']->get('laravel-dompdf::defines') ?: array();
+                foreach($defines as $key => $value){
+                    $this->define($key, $value);
+                }
+
+                //Still load these values, in case config is not used.
+                $this->define("DOMPDF_ENABLE_REMOTE", true);
+                $this->define("DOMPDF_ENABLE_AUTOLOAD", false);
+                $this->define("DOMPDF_CHROOT", $basePath);
+                $this->define("DOMPDF_LOG_OUTPUT_FILE", $app['path.storage'] . '/logs/dompdf.html');
+
+
+                $config_file = $app['config']->get('laravel-dompdf::config_file') ?: $basePath .'/vendor/dompdf/dompdf/dompdf_config.inc.php';
+
+                if(file_exists($config_file)){
+                    require_once $config_file;
+                }else{
+                    throw new Exception("$config_file cannot be loaded, please configure correct config file (config.php: config_file)");
+                }
+
+                return new PDF($app['config'], $app['files'], $app['view'], $app['path.public']);
             });
 	}
 
@@ -44,5 +66,11 @@ class ServiceProvider extends IlluminateServiceProvider {
 	{
 		return array('dompdf');
 	}
+
+    protected function define($name, $value){
+        if ( !defined($name) ) {
+            define($name, $value);
+        }
+    }
 
 }

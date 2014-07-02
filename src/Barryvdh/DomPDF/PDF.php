@@ -30,17 +30,34 @@ class PDF{
     protected $orientation;
     protected $paper;
     protected $showWarnings;
+    protected $public_path;
 
     /**
      *
      * @param \Illuminate\Config\Repository $config
      * @param \Illuminate\Filesystem\Filesystem $files
      * @param \Illuminate\View\Factory $view
+     * @param string $publicPath
      */
-    public function __construct(ConfigRepository $config, Filesystem $files, /* Illuminate\View\Factory */ $view){
+    public function __construct(ConfigRepository $config, Filesystem $files, /* Illuminate\View\Factory */ $view, $publicPath){
         $this->config = $config;
         $this->files = $files;
         $this->view = $view;
+        $this->public_path = $publicPath;
+
+        $this->showWarnings = $this->config->get('debug');
+
+        //To prevent old configs from not working..
+        if($this->config->has('laravel-dompdf::paper')){
+            $this->paper = $this->config->get('laravel-dompdf::paper');
+        }else{
+            $this->paper = DOMPDF_DEFAULT_PAPER_SIZE;
+        }
+
+        $this->orientation = $this->config->get('laravel-dompdf::orientation') ?: 'portrait';
+
+        $this->dompdf = new \DOMPDF();
+        $this->dompdf->set_base_path(realpath($publicPath));
     }
 
     /**
@@ -97,11 +114,11 @@ class PDF{
      * @return static
      */
     public function loadHTML($string, $encoding = null){
-        $this->init();
+        $pdf = $this->newInstance();
         $string = $this->convertEntities($string);
-        $this->dompdf->load_html($string, $encoding);
-        $this->rendered = false;
-        return $this;
+        $pdf->dompdf->load_html($string, $encoding);
+        $pdf->rendered = false;
+        return $pdf;
     }
 
     /**
@@ -111,10 +128,10 @@ class PDF{
      * @return static
      */
     public function loadFile($file){
-        $this->init();
-        $this->dompdf->load_html_file($file);
-        $this->rendered = false;
-        return $this;
+        $pdf = $this->newInstance();
+        $pdf->dompdf->load_html_file($file);
+        $pdf->rendered = false;
+        return $pdf;
     }
 
     /**
@@ -128,11 +145,8 @@ class PDF{
      */
     public function loadView($view, $data = array(), $mergeData = array(), $encoding = null){
         $html = $this->view->make($view, $data, $mergeData)->render();
-        $this->loadHTML($html, $encoding);
-        return $this;
+        return $this->loadHTML($html, $encoding);
     }
-
-
 
     /**
      * Output the PDF as a string.
@@ -185,51 +199,13 @@ class PDF{
         ));
     }
 
-    protected function define($name, $value){
-        if ( !defined($name) ) {
-            define($name, $value);
-        }
-    }
-
-    protected function init(){
-
-        if(!is_null($this->dompdf)){
-            return; // Already intialized
-        }
-
-        $defines = $this->config->get('laravel-dompdf::defines') ?: array();
-        foreach($defines as $key => $value){
-            $this->define($key, $value);
-        }
-
-        //Still load these values, in case config is not used.
-        $this->define("DOMPDF_ENABLE_REMOTE", true);
-        $this->define("DOMPDF_ENABLE_AUTOLOAD", false);
-        $this->define("DOMPDF_CHROOT", base_path());
-        $this->define("DOMPDF_LOG_OUTPUT_FILE", storage_path() . '/logs/dompdf.html');
-
-
-        $config_file = $this->config->get('laravel-dompdf::config_file') ?: base_path() .'/vendor/dompdf/dompdf/dompdf_config.inc.php';
-
-        if(file_exists($config_file)){
-            require_once $config_file;
-        }else{
-            throw new Exception("$config_file cannot be loaded, please configure correct config file (config.php: config_file)");
-        }
-
-        $this->showWarnings = $this->config->get('debug');
-
-        //To prevent old configs from not working..
-        if($this->config->has('laravel-dompdf::paper')){
-            $this->paper = $this->config->get('laravel-dompdf::paper');
-        }else{
-            $this->paper = DOMPDF_DEFAULT_PAPER_SIZE;
-        }
-
-        $this->orientation = $this->config->get('laravel-dompdf::orientation') ?: 'portrait';
-
-        $this->dompdf = new \DOMPDF();
-        $this->dompdf->set_base_path(realpath(public_path()));
+    /**
+     * Return a new instance of this wrapper
+     *
+     * @return static
+     */
+    protected function newInstance(){
+        return new static($this->config, $this->files, $this->view, $this->public_path);
     }
 
     /**
