@@ -45,7 +45,7 @@ class PDF{
         $this->view = $view;
         $this->public_path = $publicPath;
 
-        $this->showWarnings = $this->config->get('debug');
+        $this->showWarnings = $this->config->get('laravel-dompdf::show_warnings', false);
 
         //To prevent old configs from not working..
         if($this->config->has('laravel-dompdf::paper')){
