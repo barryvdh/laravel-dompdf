@@ -114,11 +114,10 @@ class PDF{
      * @return static
      */
     public function loadHTML($string, $encoding = null){
-        $pdf = $this->newInstance();
         $string = $this->convertEntities($string);
-        $pdf->dompdf->load_html($string, $encoding);
-        $pdf->rendered = false;
-        return $pdf;
+        $this->dompdf->load_html($string, $encoding);
+        $this->rendered = false;
+        return $this;
     }
 
     /**
@@ -128,10 +127,9 @@ class PDF{
      * @return static
      */
     public function loadFile($file){
-        $pdf = $this->newInstance();
-        $pdf->dompdf->load_html_file($file);
-        $pdf->rendered = false;
-        return $pdf;
+        $this->dompdf->load_html_file($file);
+        $this->rendered = false;
+        return $this;
     }
 
     /**
@@ -197,15 +195,6 @@ class PDF{
             'Content-Type' => 'application/pdf',
             'Content-Disposition' =>  'inline; filename="'.$filename.'"',
         ));
-    }
-
-    /**
-     * Return a new instance of this wrapper
-     *
-     * @return static
-     */
-    protected function newInstance(){
-        return new static($this->config, $this->files, $this->view, $this->public_path);
     }
 
     /**
