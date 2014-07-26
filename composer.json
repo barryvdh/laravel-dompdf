@@ -11,8 +11,8 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.x",
-        "dompdf/dompdf": "0.6.x"
+        "illuminate/support": "~4.0",
+        "dompdf/dompdf": "0.6.*"
     },
 
     "autoload": {
@@ -20,5 +20,9 @@
             "Barryvdh\\DomPDF": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4-dev"
+        }
+    }
 }
