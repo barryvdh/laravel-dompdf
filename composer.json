@@ -16,8 +16,8 @@
     },
 
     "autoload": {
-        "psr-0": {
-            "Barryvdh\\DomPDF": "src/"
+        "psr-4": {
+            "Barryvdh\\DomPDF\\": "src"
         }
     },
     "extra": {

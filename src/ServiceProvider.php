@@ -19,7 +19,7 @@ class ServiceProvider extends IlluminateServiceProvider {
      */
     public function boot()
     {
-        $this->app['config']->package('barryvdh/laravel-dompdf', __DIR__ . '/../../config');
+        $this->app['config']->package('barryvdh/laravel-dompdf', __DIR__ . '/config');
 
         $defines = $this->app['config']->get('laravel-dompdf::defines') ?: array();
         foreach ($defines as $key => $value) {
