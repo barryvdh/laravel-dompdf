@@ -61,6 +61,12 @@ class ServiceProvider extends IlluminateServiceProvider {
         return array('dompdf');
     }
 
+    /**
+     * Define a value, if not already defined
+     * 
+     * @param string $name
+     * @param string $value
+     */
     protected function define($name, $value)
     {
         if (!defined($name)) {
