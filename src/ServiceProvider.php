@@ -14,10 +14,12 @@ class ServiceProvider extends IlluminateServiceProvider {
     protected $defer = true;
 
     /**
-     * Bootstrap the application events.
+     * Register the service provider.
      *
+     * @throws \Exception
+     * @return void
      */
-    public function boot()
+    public function register()
     {
         $this->app['config']->package('barryvdh/laravel-dompdf', __DIR__ . '/config');
 
@@ -43,16 +45,7 @@ class ServiceProvider extends IlluminateServiceProvider {
                 "$config_file cannot be loaded, please configure correct config file (config.php: config_file)"
             );
         }
-    }
-
-    /**
-     * Register the service provider.
-     *
-     * @throws \Exception
-     * @return void
-     */
-    public function register()
-    {
+        
         $this->app->bind('dompdf', function ($app) {
                 return new PDF($app['config'], $app['files'], $app['view'], $app['path.public']);
             });
