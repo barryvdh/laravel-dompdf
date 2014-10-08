@@ -34,9 +34,12 @@ class ServiceProvider extends IlluminateServiceProvider {
         $this->define("DOMPDF_CHROOT", $this->app['path.base']);
         $this->define("DOMPDF_LOG_OUTPUT_FILE", $this->app['path.storage'] . '/logs/dompdf.html');
 
-        $config_file = $this->app['config']->get(
-            'laravel-dompdf::config_file'
-        ) ?: $this->app['path.base'] . '/vendor/dompdf/dompdf/dompdf_config.inc.php';
+        $dompdf_config = '/vendor/dompdf/dompdf/dompdf_config.inc.php';
+        $dompdf_config = file_exists($this->guessPackagePath().'/../..'.$dompdf_config)
+            ? $this->guessPackagePath().'/../..'.$dompdf_config
+            : $this->app['path.base'].$dompdf_config;
+
+        $config_file = $this->app['config']->get('laravel-dompdf::config_file') ?: $dompdf_config;
 
         if (file_exists($config_file)) {
             require_once $config_file;
