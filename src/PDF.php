@@ -2,7 +2,7 @@
 namespace Barryvdh\DomPDF;
 
 use Exception;
-use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Response;
 
@@ -17,7 +17,7 @@ class PDF{
     /** @var \DOMPDF  */
     protected $dompdf;
 
-    /** @var \Illuminate\Config\Repository  */
+    /** @var \Illuminate\Contracts\Config\Repository  */
     protected $config;
 
     /** @var \Illuminate\Filesystem\Filesystem  */
@@ -34,7 +34,7 @@ class PDF{
 
     /**
      *
-     * @param \Illuminate\Config\Repository $config
+     * @param \Illuminate\Contracts\Config\Repository $config
      * @param \Illuminate\Filesystem\Filesystem $files
      * @param \Illuminate\View\Factory $view
      * @param string $publicPath
@@ -45,16 +45,16 @@ class PDF{
         $this->view = $view;
         $this->public_path = $publicPath;
 
-        $this->showWarnings = $this->config->get('laravel-dompdf::show_warnings', false);
+        $this->showWarnings = $this->config->get('dompdf.show_warnings', false);
 
         //To prevent old configs from not working..
-        if($this->config->has('laravel-dompdf::paper')){
-            $this->paper = $this->config->get('laravel-dompdf::paper');
+        if($this->config->has('dompdf.paper')){
+            $this->paper = $this->config->get('dompdf.paper');
         }else{
             $this->paper = DOMPDF_DEFAULT_PAPER_SIZE;
         }
 
-        $this->orientation = $this->config->get('laravel-dompdf::orientation') ?: 'portrait';
+        $this->orientation = $this->config->get('dompdf.orientation') ?: 'portrait';
 
         $this->dompdf = new \DOMPDF();
         $this->dompdf->set_base_path(realpath($publicPath));

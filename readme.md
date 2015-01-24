@@ -1,8 +1,8 @@
-## DOMPDF Wrapper for Laravel 4
+## DOMPDF Wrapper for Laravel 5
 
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
-    "barryvdh/laravel-dompdf": "0.4.*"
+    "barryvdh/laravel-dompdf": "0.5.*"
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php
 
@@ -33,9 +33,8 @@ You can change the orientation and paper size, and hide or show errors (by defau
 
 If you need the output as a string, you can get the rendered PDF with the output() function, so you can save/output it yourself.
 
-You can  publish the config-file to change some settings (default paper etc).
-
-    php artisan config:publish barryvdh/laravel-dompdf
+You can copy the config-file (`config/dompdf.php`) to your local config to change some settings (default paper etc).
+You can also use your ConfigProvider to set certain keys.
 
 ### Tip: UTF-8 support
 In your templates, set the UTF-8 Metatag:
@@ -44,4 +43,4 @@ In your templates, set the UTF-8 Metatag:
 
 ### License
 
-This DOMPDF Wrapper for Laravel4 is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+This DOMPDF Wrapper for Laravel is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
