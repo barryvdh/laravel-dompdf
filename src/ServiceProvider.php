@@ -22,8 +22,12 @@ class ServiceProvider extends IlluminateServiceProvider {
     public function register()
     {
         $config = require __DIR__ . '/../config/dompdf.php';
+        $config = array_merge($config, $this->app['config']->get('dompdf', []));
         $this->app['config']->set('dompdf', $config);
+    }
 
+    public function boot()
+    {
         $defines = $this->app['config']->get('dompdf.defines') ?: array();
         foreach ($defines as $key => $value) {
             $this->define($key, $value);
