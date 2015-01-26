@@ -77,7 +77,7 @@ class ServiceProvider extends IlluminateServiceProvider {
     {
         $defaults = $this->app['files']->getRequire($path);
         $config = $this->app['config']->get($key, []);
-        $this->app['config']->set($key, array_merge($defaults, $config));
+        $this->app['config']->set($key, config_merge($defaults, $config));
     }
     
     /**
