@@ -22,7 +22,7 @@ class ServiceProvider extends IlluminateServiceProvider {
     public function register()
     {
         $configPath = __DIR__ . '/../config/dompdf.php';
-        $this->loadConfigFrom('dompdf', $configPath);
+        $this->mergeConfigFrom('dompdf', $configPath);
         $this->publishes([$configPath => config_path('dompdf.php')]);
     }
 
@@ -65,21 +65,7 @@ class ServiceProvider extends IlluminateServiceProvider {
     {
         return array('dompdf');
     }
-
-    /**
-     * Register the package defaults.
-     *
-     * @param  string  $key
-     * @param  string  $path
-     * @return void
-     */
-    protected function loadConfigFrom($key, $path)
-    {
-        $defaults = $this->app['files']->getRequire($path);
-        $config = $this->app['config']->get($key, []);
-        $this->app['config']->set($key, config_merge($defaults, $config));
-    }
-    
+   
     /**
      * Define a value, if not already defined
      * 
