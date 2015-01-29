@@ -22,7 +22,7 @@ class ServiceProvider extends IlluminateServiceProvider {
     public function register()
     {
         $configPath = __DIR__ . '/../config/dompdf.php';
-        $this->mergeConfigFrom('dompdf', $configPath);
+        $this->mergeConfigFrom($configPath, 'dompdf');
         $this->publishes([$configPath => config_path('dompdf.php')]);
     }
 
