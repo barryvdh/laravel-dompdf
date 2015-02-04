@@ -1,6 +1,6 @@
 ## DOMPDF Wrapper for Laravel 4
 
-### For Laravel 5, check the [0.5 branch](https://github.com/barryvdh/laravel-dompdf/tree/0.5)!
+### For Laravel 5, check the [0.5 / master branch](https://github.com/barryvdh/laravel-dompdf)!
 
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
