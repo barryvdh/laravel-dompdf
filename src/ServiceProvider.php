@@ -23,11 +23,13 @@ class ServiceProvider extends IlluminateServiceProvider {
     {
         $configPath = __DIR__ . '/../config/dompdf.php';
         $this->mergeConfigFrom($configPath, 'dompdf');
-        $this->publishes([$configPath => config_path('dompdf.php')]);
     }
 
     public function boot()
     {
+        $configPath = __DIR__ . '/../config/dompdf.php';
+        $this->publishes([$configPath => config_path('dompdf.php')], 'config');
+        
         $defines = $this->app['config']->get('dompdf.defines') ?: array();
         foreach ($defines as $key => $value) {
             $this->define($key, $value);
