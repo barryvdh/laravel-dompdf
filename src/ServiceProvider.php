@@ -54,8 +54,8 @@ class ServiceProvider extends IlluminateServiceProvider {
         }
         
         $this->app->bind('dompdf', function ($app) {
-                return new PDF($app['config'], $app['files'], $app['view'], $app['path.public']);
-            });
+            return new PDF($app['config'], $app['files'], $app['view'], $app['path.public']);
+        });
     }
 
     /**
