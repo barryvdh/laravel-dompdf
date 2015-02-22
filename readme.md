@@ -6,7 +6,7 @@ Require this package in your composer.json and update composer. This will downlo
 
     "barryvdh/laravel-dompdf": "0.5.*"
 
-After updating composer, add the ServiceProvider to the providers array in app/config/app.php
+After updating composer, add the ServiceProvider to the providers array in config/app.php
 
     'Barryvdh\DomPDF\ServiceProvider',
 
