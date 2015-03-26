@@ -1,9 +1,11 @@
 <?php
 namespace Barryvdh\DomPDF;
 
+use DOMPDF;
 use Exception;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\View\Factory as ViewFactory;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Http\Response;
 
 /**
@@ -23,7 +25,7 @@ class PDF{
     /** @var \Illuminate\Filesystem\Filesystem  */
     protected $files;
 
-    /** @var \Illuminate\View\Factory  */
+    /** @var \Illuminate\Contracts\View\Factory  */
     protected $view;
 
     protected $rendered = false;
@@ -33,17 +35,16 @@ class PDF{
     protected $public_path;
 
     /**
-     *
+     * @param \DOMPDF $dompdf
      * @param \Illuminate\Contracts\Config\Repository $config
      * @param \Illuminate\Filesystem\Filesystem $files
      * @param \Illuminate\View\Factory $view
-     * @param string $publicPath
      */
-    public function __construct(ConfigRepository $config, Filesystem $files, /* Illuminate\View\Factory */ $view, $publicPath){
+    public function __construct(DOMPDF $dompdf, ConfigRepository $config, Filesystem $files, ViewFactory $view){
+        $this->dompdf = $dompdf;
         $this->config = $config;
         $this->files = $files;
         $this->view = $view;
-        $this->public_path = $publicPath;
 
         $this->showWarnings = $this->config->get('dompdf.show_warnings', false);
 
@@ -55,9 +56,6 @@ class PDF{
         }
 
         $this->orientation = $this->config->get('dompdf.orientation') ?: 'portrait';
-
-        $this->dompdf = new \DOMPDF();
-        $this->dompdf->set_base_path(realpath($publicPath));
     }
 
     /**

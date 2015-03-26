@@ -11,7 +11,7 @@ class ServiceProvider extends IlluminateServiceProvider {
      *
      * @var bool
      */
-    protected $defer = true;
+    protected $defer = false;
 
     /**
      * Register the service provider.
@@ -23,6 +23,18 @@ class ServiceProvider extends IlluminateServiceProvider {
     {
         $configPath = __DIR__ . '/../config/dompdf.php';
         $this->mergeConfigFrom($configPath, 'dompdf');
+
+        $this->app->bind('dompdf', function ($app) {
+            $dompdf = new \DOMPDF();
+            $dompdf->set_base_path(realpath($app['path.public']));
+            return $dompdf;
+        });
+        $this->app->alias('dompdf', 'DOMPDF');
+
+        $this->app->bind('dompdf.wrapper', function ($app) {
+            return new PDF($app['dompdf'], $app['config'], $app['files'], $app['view']);
+        });
+
     }
 
     public function boot()
@@ -52,10 +64,6 @@ class ServiceProvider extends IlluminateServiceProvider {
                 "$config_file cannot be loaded, please configure correct config file (dompdf.config_file)"
             );
         }
-        
-        $this->app->bind('dompdf', function ($app) {
-            return new PDF($app['config'], $app['files'], $app['view'], $app['path.public']);
-        });
     }
 
     /**
@@ -65,7 +73,7 @@ class ServiceProvider extends IlluminateServiceProvider {
      */
     public function provides()
     {
-        return array('dompdf');
+        return array('dompdf', 'dompdf.wrapper');
     }
    
     /**

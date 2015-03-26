@@ -10,7 +10,7 @@ class Facade extends IlluminateFacade {
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'dompdf'; }
+    protected static function getFacadeAccessor() { return 'dompdf.wrapper'; }
 
     /**
      * Resolve a new instance
