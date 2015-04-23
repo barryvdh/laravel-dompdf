@@ -35,7 +35,7 @@ You can change the orientation and paper size, and hide or show errors (by defau
 
 If you need the output as a string, you can get the rendered PDF with the output() function, so you can save/output it yourself.
 
-You can copy the config-file (`config/dompdf.php`) to your local config to change some settings (default paper etc).
+user `php artisan vendor:publish` to create a config file located at `config/dompdf.php` which will allow you to define local config to change some settings (default paper etc).
 You can also use your ConfigProvider to set certain keys.
 
 ### Tip: UTF-8 support
