@@ -5,14 +5,17 @@
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
     "barryvdh/laravel-dompdf": "0.5.*"
+    "illuminate/html" : "5.*"
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php
 
     'Barryvdh\DomPDF\ServiceProvider',
+    'Illuminate\Html\HtmlServiceProvider',
 
 You can optionally use the facade for shorter code. Add this to your facades:
 
     'PDF' => 'Barryvdh\DomPDF\Facade',
+    'HTML'      => 'Illuminate\Html\HtmlFacade',
 
 You can create a new DOMPDF instance and load a HTML string, file or view name. You can save it to a file, or stream (show in browser) or download.
 
