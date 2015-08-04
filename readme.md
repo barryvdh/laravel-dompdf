@@ -6,6 +6,10 @@ Require this package in your composer.json and update composer. This will downlo
 
     "barryvdh/laravel-dompdf": "0.6.*"
 
+## Installation
+
+### Laravel 5.x:
+
 After updating composer, add the ServiceProvider to the providers array in config/app.php
 
     'Barryvdh\DomPDF\ServiceProvider',
@@ -13,6 +17,22 @@ After updating composer, add the ServiceProvider to the providers array in confi
 You can optionally use the facade for shorter code. Add this to your facades:
 
     'PDF' => 'Barryvdh\DomPDF\Facade',
+
+### Lumen:
+
+After updating composer add the following lines to register provider in `bootstrap/app.php`
+
+  ```
+  $app->register(\Barryvdh\DomPDF\ServiceProvider::class);
+  ```
+  
+To change the configuration, copy the config file to your config folder and enable it in `bootstrap/app.php`:
+
+  ```
+  $app->configure('dompdf');
+  ```
+  
+## Using
 
 You can create a new DOMPDF instance and load a HTML string, file or view name. You can save it to a file, or stream (show in browser) or download.
 
