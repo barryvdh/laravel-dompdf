@@ -7,6 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Http\Response;
+use Storage;
 
 /**
  * A Laravel wrapper for DOMPDF
@@ -157,13 +158,13 @@ class PDF{
     }
 
     /**
-     * Save the PDF to a file
+     * Save the PDF to a file, using Laravel's Filesystem.
      *
      * @param $filename
      * @return static
      */
     public function save($filename){
-        $this->files->put($filename, $this->output());
+        Storage::put($filename, $this->output());
         return $this;
     }
 
