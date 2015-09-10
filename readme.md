@@ -16,7 +16,7 @@ After updating composer, add the ServiceProvider to the providers array in confi
 
 You can optionally use the facade for shorter code. Add this to your facades:
 
-    'PDF' => 'Barryvdh\DomPDF\Facade',
+    'PDF' => Barryvdh\DomPDF\Facade::class,
 
 ### Lumen:
 
