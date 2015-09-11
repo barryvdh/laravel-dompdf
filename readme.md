@@ -12,7 +12,7 @@ Require this package in your composer.json and update composer. This will downlo
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php
 
-    'Barryvdh\DomPDF\ServiceProvider',
+    Barryvdh\DomPDF\ServiceProvider::class,
 
 You can optionally use the facade for shorter code. Add this to your facades:
 
