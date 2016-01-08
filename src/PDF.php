@@ -83,6 +83,18 @@ class PDF{
     }
 
     /**
+     * Set the public path for external stylesheets and images
+     *
+     * @param string $path
+     * @return $this
+     */
+    public function setPublicPath($path) {
+        $this->public_path = $path;
+        $this->dompdf->set_base_path($this->path);
+        return $this;
+    }
+
+    /**
      * Set the orientation (default portrait)
      *
      * @param string $orientation
