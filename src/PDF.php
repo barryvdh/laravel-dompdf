@@ -1,7 +1,7 @@
 <?php
 namespace Barryvdh\DomPDF;
 
-use DOMPDF;
+use Dompdf\Dompdf;
 use Exception;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Factory as ViewFactory;
@@ -9,14 +9,14 @@ use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Http\Response;
 
 /**
- * A Laravel wrapper for DOMPDF
+ * A Laravel wrapper for Dompdf
  *
  * @package laravel-dompdf
  * @author Barry vd. Heuvel
  */
 class PDF{
 
-    /** @var \DOMPDF  */
+    /** @var Dompdf  */
     protected $dompdf;
 
     /** @var \Illuminate\Contracts\Config\Repository  */
@@ -35,33 +35,24 @@ class PDF{
     protected $public_path;
 
     /**
-     * @param \DOMPDF $dompdf
+     * @param Dompdf $dompdf
      * @param \Illuminate\Contracts\Config\Repository $config
      * @param \Illuminate\Filesystem\Filesystem $files
      * @param \Illuminate\View\Factory $view
      */
-    public function __construct(DOMPDF $dompdf, ConfigRepository $config, Filesystem $files, ViewFactory $view){
+    public function __construct(Dompdf $dompdf, ConfigRepository $config, Filesystem $files, ViewFactory $view){
         $this->dompdf = $dompdf;
         $this->config = $config;
         $this->files = $files;
         $this->view = $view;
 
         $this->showWarnings = $this->config->get('dompdf.show_warnings', false);
-
-        //To prevent old configs from not working..
-        if($this->config->has('dompdf.paper')){
-            $this->paper = $this->config->get('dompdf.paper');
-        }else{
-            $this->paper = DOMPDF_DEFAULT_PAPER_SIZE;
-        }
-
-        $this->orientation = $this->config->get('dompdf.orientation') ?: 'portrait';
     }
 
     /**
      * Get the DomPDF instance
      *
-     * @return \DOMPDF
+     * @return Dompdf
      */
     public function getDomPDF(){
         return $this->dompdf;
@@ -74,22 +65,8 @@ class PDF{
      * @param string $orientation
      * @return $this
      */
-    public function setPaper($paper, $orientation=null){
-        $this->paper = $paper;
-        if($orientation){
-            $this->orientation = $orientation;
-        }
-        return $this;
-    }
-
-    /**
-     * Set the orientation (default portrait)
-     *
-     * @param string $orientation
-     * @return static
-     */
-    public function setOrientation($orientation){
-        $this->orientation = $orientation;
+    public function setPaper($paper, $orientation = 'portrait'){
+        $this->dompdf->setPaper($paper, $orientation);
         return $this;
     }
 
@@ -113,7 +90,7 @@ class PDF{
      */
     public function loadHTML($string, $encoding = null){
         $string = $this->convertEntities($string);
-        $this->dompdf->load_html($string, $encoding);
+        $this->dompdf->loadHtml($string, $encoding);
         $this->rendered = false;
         return $this;
     }
@@ -125,7 +102,7 @@ class PDF{
      * @return static
      */
     public function loadFile($file){
-        $this->dompdf->load_html_file($file);
+        $this->dompdf->loadHtmlFile($file);
         $this->rendered = false;
         return $this;
     }
@@ -203,7 +180,7 @@ class PDF{
             throw new Exception('DOMPDF not created yet');
         }
 
-        $this->dompdf->set_paper($this->paper, $this->orientation);
+        $this->dompdf->setPaper($this->paper, $this->orientation);
 
         $this->dompdf->render();
 

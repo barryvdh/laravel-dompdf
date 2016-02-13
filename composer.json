@@ -10,9 +10,9 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "illuminate/support": "5.0.x|5.1.x|5.2.x",
-        "dompdf/dompdf": "0.6.*"
+        "php": ">=5.5.9",
+        "illuminate/support": "5.1.x|5.2.x",
+        "dompdf/dompdf": "^0.7"
     },
 
     "autoload": {
@@ -22,7 +22,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.6-dev"
+            "dev-master": "0.7-dev"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }

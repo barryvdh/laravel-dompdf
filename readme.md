@@ -51,7 +51,7 @@ You can chain the methods:
 
 You can change the orientation and paper size, and hide or show errors (by default, errors are shown when debug is on)
 
-    PDF::loadHTML($html)->setPaper('a4')->setOrientation('landscape')->setWarnings(false)->save('myfile.pdf')
+    PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
 
 If you need the output as a string, you can get the rendered PDF with the output() function, so you can save/output it yourself.
 
