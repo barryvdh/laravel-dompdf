@@ -4,6 +4,7 @@ namespace Barryvdh\DomPDF;
 use Dompdf\Dompdf;
 use Exception;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
+use MongoDB\Driver\Command;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
@@ -57,6 +58,10 @@ class ServiceProvider extends IlluminateServiceProvider
             return new PDF($app['dompdf'], $app['config'], $app['files'], $app['view']);
         });
 
+        $this->app->singleton('command.dompdf.front', function ($app) {
+            return $app->make(Commands\LoadFonts::class);
+        });
+
     }
 
     /**
@@ -74,6 +79,8 @@ class ServiceProvider extends IlluminateServiceProvider
         if (! $this->isLumen()) {
             $configPath = __DIR__.'/../config/dompdf.php';
             $this->publishes([$configPath => config_path('dompdf.php')], 'config');
+
+            $this->commands('command.dompdf.front');
         }
     }
 
