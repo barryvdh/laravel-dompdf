@@ -24,7 +24,7 @@ class LoadFonts extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'import custom font for dompdf';
 
     /**
      * Create a new command instance.
