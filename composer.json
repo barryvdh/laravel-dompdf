@@ -17,7 +17,7 @@
 
     "autoload": {
         "psr-4": {
-            "im424\\DomPDF\\": "src"
+            "im424\\dompdf\\": "src"
         }
     },
     "extra": {
