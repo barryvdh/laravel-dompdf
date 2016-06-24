@@ -9,6 +9,18 @@
             "email": "424@live.com"
         }
     ],
+    "repositories": [{
+    "type": "package",
+    "package": {
+        "name": "im424/dompdf",
+        "version": "0.6.1",
+        "source": {
+                "url": "https://github.com/im424/dompdf.git",
+            "type": "git",
+        "reference": "master"
+        }
+        }
+    }],
     "require": {
         "php": ">=5.5.9",
         "illuminate/support": "5.1.x|5.2.x",
