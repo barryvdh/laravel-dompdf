@@ -24,7 +24,7 @@
     "require": {
         "php": ">=5.5.9",
         "illuminate/support": "5.1.x|5.2.x",
-        "dompdf/dompdf": "^0.7"
+        "im424/dompdf": "*"
     },
 
     "autoload": {
