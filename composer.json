@@ -5,8 +5,8 @@
     "keywords": ["laravel", "dompdf", "pdf"],
     "authors": [
         {
-            "name": "Barry vd. Heuvel",
-            "email": "barryvdh@gmail.com"
+            "name": "im424",
+            "email": "424@live.com"
         }
     ],
     "require": {
@@ -17,7 +17,7 @@
 
     "autoload": {
         "psr-4": {
-            "Barryvdh\\DomPDF\\": "src"
+            "im424\\DomPDF\\": "src"
         }
     },
     "extra": {

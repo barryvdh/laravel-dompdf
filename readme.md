@@ -1,10 +1,15 @@
-## DOMPDF Wrapper for Laravel 5
+## DOMPDF Wrapper for Laravel 5/ im424 Edition
+
+###Danger!
+It is a clone repo for my personal use.
+Please see [dompdf](https://github.com/im424/dompdf) to see why.
+
 
 ### For Laravel 4.x, check the [0.4 branch](https://github.com/barryvdh/laravel-dompdf/tree/0.4)!
 
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
-    "barryvdh/laravel-dompdf": "0.6.*"
+    "im424/laravel-dompdf": "0.6.*"
 
 ## Installation
 
@@ -12,11 +17,11 @@ Require this package in your composer.json and update composer. This will downlo
 
 After updating composer, add the ServiceProvider to the providers array in config/app.php
 
-    Barryvdh\DomPDF\ServiceProvider::class,
+    im424\DomPDF\ServiceProvider::class,
 
 You can optionally use the facade for shorter code. Add this to your facades:
 
-    'PDF' => Barryvdh\DomPDF\Facade::class,
+    'PDF' => im424\DomPDF\Facade::class,
 
 ### Lumen:
 
