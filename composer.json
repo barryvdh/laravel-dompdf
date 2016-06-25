@@ -16,7 +16,7 @@
         "version": "0.6.1",
         "source": {
                 "url": "https://github.com/im424/dompdf",
-            "type": "vcs",
+            "type": "git",
         "reference": "master"
         }
         }
