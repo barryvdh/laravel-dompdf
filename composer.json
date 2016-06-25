@@ -13,7 +13,7 @@
     "type": "package",
     "package": {
         "name": "im424/dompdf",
-        "version": "0.6.1",
+        "version": "0.7.0",
         "source": {
                 "url": "https://github.com/im424/dompdf",
             "type": "git",
@@ -24,7 +24,7 @@
     "require": {
         "php": ">=5.5.9",
         "illuminate/support": "5.1.x|5.2.x",
-        "im424/dompdf": "0.6.1"
+        "im424/dompdf": "0.7.0"
     },
 
     "autoload": {
