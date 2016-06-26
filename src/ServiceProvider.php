@@ -1,5 +1,5 @@
 <?php
-namespace im424\dompdf;
+namespace im424\laravel_dompdf;
 
 use Dompdf\Dompdf;
 use Exception;
