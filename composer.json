@@ -29,7 +29,7 @@
 
     "autoload": {
         "psr-4": {
-            "im424\\dompdf\\": "src"
+            "im424\\laravel_dompdf\\": "src"
         }
     },
     "extra": {
