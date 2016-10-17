@@ -214,5 +214,14 @@ class PDF{
         }
         return $subject;
     }
-
+    
+    /**
+     * Set a password to open the PDF
+     *
+     * @param string $password
+     */
+    public function setEncryption($password) {
+        $this->render();
+        $this->dompdf->get_canvas()->get_cpdf()->setEncryption($password, $password);
+    }
 }
