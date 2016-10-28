@@ -131,7 +131,7 @@ class PDF{
      * @return static
      */
     public function setOptions(array $options) {
-        $options = Options($options);
+        $options = new Options($options);
         $this->dompdf->setOptions($options);
         return $this;
     }
