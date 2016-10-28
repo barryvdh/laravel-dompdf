@@ -2,6 +2,7 @@
 namespace Barryvdh\DomPDF;
 
 use Dompdf\Dompdf;
+use Dompdf\Options;
 use Exception;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\View\Factory as ViewFactory;
@@ -121,6 +122,18 @@ class PDF{
     public function loadView($view, $data = array(), $mergeData = array(), $encoding = null){
         $html = $this->view->make($view, $data, $mergeData)->render();
         return $this->loadHTML($html, $encoding);
+    }
+
+    /**
+     * Set/Change an option in DomPdf
+     *
+     * @param array $options
+     * @return static
+     */
+    public function setOptions(array $options) {
+        $options = Options($options);
+        $this->dompdf->setOptions($options);
+        return $this;
     }
 
     /**
