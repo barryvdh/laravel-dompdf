@@ -4,7 +4,7 @@ namespace Barryvdh\DomPDF;
 use Dompdf\Dompdf;
 use Exception;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\View\Factory as ViewFactory;
+use Illuminate\Contracts\View\Factory as ViewFactory;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Http\Response;
 
@@ -38,7 +38,7 @@ class PDF{
      * @param Dompdf $dompdf
      * @param \Illuminate\Contracts\Config\Repository $config
      * @param \Illuminate\Filesystem\Filesystem $files
-     * @param \Illuminate\View\Factory $view
+     * @param \Illuminate\Contracts\View\Factory $view
      */
     public function __construct(Dompdf $dompdf, ConfigRepository $config, Filesystem $files, ViewFactory $view){
         $this->dompdf = $dompdf;
