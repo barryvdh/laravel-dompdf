@@ -74,6 +74,17 @@ class PDF{
     }
 
     /**
+     * Set the HttpContext
+     *
+     * @param resource $context
+     * @return $this
+     */
+    public function setHttpContext($context){
+        $this->dompdf->setHttpContext($context);
+        return $this;
+    }
+
+    /**
      * Show or hide warnings
      *
      * @param bool $warnings
