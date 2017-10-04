@@ -38,7 +38,7 @@ return array(
          * Times-Roman, Times-Bold, Times-BoldItalic, Times-Italic,
          * Symbol, ZapfDingbats.
          */
-        "DOMPDF_FONT_DIR" => storage_path('fonts/'), // advised by dompdf (https://github.com/dompdf/dompdf/pull/782)
+        "font_dir" => storage_path('fonts/'), // advised by dompdf (https://github.com/dompdf/dompdf/pull/782)
 
         /**
          * The location of the DOMPDF font cache directory
@@ -48,7 +48,7 @@ return array(
          *
          * Note: This directory must exist and be writable by the webserver process.
          */
-        "DOMPDF_FONT_CACHE" => storage_path('fonts/'),
+        "font_cache" => storage_path('fonts/'),
 
         /**
          * The location of a temporary directory.
@@ -57,7 +57,7 @@ return array(
          * The temporary directory is required to download remote images and when
          * using the PFDLib back end.
          */
-        "DOMPDF_TEMP_DIR" => sys_get_temp_dir(),
+        "temp_dir" => sys_get_temp_dir(),
 
         /**
          * ==== IMPORTANT ====
@@ -71,23 +71,12 @@ return array(
          * direct class use like:
          * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
          */
-        "DOMPDF_CHROOT" => realpath(base_path()),
-
-        /**
-         * Whether to use Unicode fonts or not.
-         *
-         * When set to true the PDF backend must be set to "CPDF" and fonts must be
-         * loaded via load_font.php.
-         *
-         * When enabled, dompdf can support all Unicode glyphs. Any glyphs used in a
-         * document must be present in your fonts, however.
-         */
-        "DOMPDF_UNICODE_ENABLED" => true,
+        "chroot" => realpath(base_path()),
 
         /**
          * Whether to enable font subsetting or not.
          */
-        "DOMPDF_ENABLE_FONT_SUBSETTING" => false,
+        "enable_font_subsetting" => false,
 
         /**
          * The PDF rendering backend to use
@@ -117,7 +106,7 @@ return array(
          * @link http://www.ros.co.nz/pdf
          * @link http://www.php.net/image
          */
-        "DOMPDF_PDF_BACKEND" => "CPDF",
+        "pdf_backend" => "CPDF",
 
         /**
          * PDFlib license key
@@ -143,7 +132,7 @@ return array(
          * the desired content might be different (e.g. screen or projection view of html file).
          * Therefore allow specification of content here.
          */
-        "DOMPDF_DEFAULT_MEDIA_TYPE" => "screen",
+        "default_media_type" => "screen",
 
         /**
          * The default paper size.
@@ -152,7 +141,7 @@ return array(
          *
          * @see CPDF_Adapter::PAPER_SIZES for valid sizes ('letter', 'legal', 'A4', etc.)
          */
-        "DOMPDF_DEFAULT_PAPER_SIZE" => "a4",
+        "default_paper_size" => "a4",
 
         /**
          * The default font family
@@ -160,7 +149,7 @@ return array(
          * Used if no suitable fonts can be found. This must exist in the font folder.
          * @var string
          */
-        "DOMPDF_DEFAULT_FONT" => "serif",
+        "default_font" => "serif",
 
         /**
          * Image DPI setting
@@ -195,7 +184,7 @@ return array(
          *
          * @var int
          */
-        "DOMPDF_DPI" => 96,
+        "dpi" => 96,
 
         /**
          * Enable inline PHP
@@ -209,7 +198,7 @@ return array(
          *
          * @var bool
          */
-        "DOMPDF_ENABLE_PHP" => false,
+        "enable_php" => false,
 
         /**
          * Enable inline Javascript
@@ -219,7 +208,7 @@ return array(
          *
          * @var bool
          */
-        "DOMPDF_ENABLE_JAVASCRIPT" => true,
+        "enable_javascript" => true,
 
         /**
          * Enable remote file access
@@ -238,28 +227,17 @@ return array(
          *
          * @var bool
          */
-        "DOMPDF_ENABLE_REMOTE" => true,
+        "enable_remote" => true,
 
         /**
          * A ratio applied to the fonts height to be more like browsers' line height
          */
-        "DOMPDF_FONT_HEIGHT_RATIO" => 1.1,
-
-        /**
-         * Enable CSS float
-         *
-         * Allows people to disabled CSS float support
-         * @var bool
-         */
-        "DOMPDF_ENABLE_CSS_FLOAT" => false,
-
+        "font_height_ratio" => 1.1,
 
         /**
          * Use the more-than-experimental HTML5 Lib parser
          */
-        "DOMPDF_ENABLE_HTML5_PARSER" => false,
-
-
+        "enable_html5_parser" => false,
     ),
 
 
