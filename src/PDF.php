@@ -201,7 +201,7 @@ class PDF{
 
         if ( $this->showWarnings ) {
             global $_dompdf_warnings;
-            if(count($_dompdf_warnings)){
+            if(!empty($_dompdf_warnings) && count($_dompdf_warnings)){
                 $warnings = '';
                 foreach ($_dompdf_warnings as $msg){
                     $warnings .= $msg . "\n";
