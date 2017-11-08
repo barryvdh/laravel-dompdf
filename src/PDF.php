@@ -228,4 +228,8 @@ class PDF{
         return $subject;
     }
 
+    public function setEncryption($password) {
+         $this->render();
+         $this->dompdf->get_canvas()->get_cpdf()->setEncryption($password, $password);
+    }
 }
