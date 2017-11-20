@@ -220,6 +220,8 @@ class PDF{
         $entities = array(
             '€' => '&#0128;',
             '£' => '&pound;',
+            '\n' => '',
+            '\r' => '',
         );
 
         foreach($entities as $search => $replace){
