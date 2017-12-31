@@ -87,4 +87,20 @@ class ServiceProvider extends IlluminateServiceProvider
         return array('dompdf', 'dompdf.options', 'dompdf.wrapper');
     }
 
+    /**
+     * Overriding the internal Laravel framework method
+     * Recursively merge the given configuration with the existing configuration.
+     *
+     * @param  string  $path
+     * @param  string  $key
+     * @return void
+     */
+
+    protected function mergeConfigFrom($path, $key)
+    {
+        $config = $this->app['config']->get($key, []);
+
+        $this->app['config']->set($key, array_merge_recursive(require $path, $config));
+    }
+
 }
