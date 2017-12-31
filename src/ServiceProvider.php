@@ -88,7 +88,7 @@ class ServiceProvider extends IlluminateServiceProvider
     }
 
     /**
-     * Overriding the internal Laravel framework method
+     * Overriding the internal Laravel framework method.
      * Recursively merge the given configuration with the existing configuration.
      *
      * @param  string  $path
