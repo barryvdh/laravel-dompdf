@@ -1,16 +1,20 @@
 <?php
-namespace Barryvdh\DomPDF;
+namespace Barryvdh\DomPDF\Facades;
 
-use Illuminate\Support\Facades\Facade as IlluminateFacade;
+use Illuminate\Support\Facades\Facade;
 
-class Facade extends IlluminateFacade {
+class PDF extends Facade
+{
 
     /**
      * Get the registered name of the component.
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'dompdf.wrapper'; }
+    protected static function getFacadeAccessor()
+    {
+        return 'dompdf.wrapper';
+    }
 
     /**
      * Resolve a new instance
@@ -19,8 +23,7 @@ class Facade extends IlluminateFacade {
     {
         $instance = static::$app->make(static::getFacadeAccessor());
 
-        switch (count($args))
-        {
+        switch (count($args)) {
             case 0:
                 return $instance->$method();
 
@@ -37,9 +40,7 @@ class Facade extends IlluminateFacade {
                 return $instance->$method($args[0], $args[1], $args[2], $args[3]);
 
             default:
-                return call_user_func_array(array($instance, $method), $args);
+                return call_user_func_array([$instance, $method], $args);
         }
     }
-
-
 }
