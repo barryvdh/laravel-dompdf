@@ -32,26 +32,26 @@ To change the configuration, copy the config file to your config folder and enab
   $app->configure('dompdf');
   ```
   
-## Using
+## Using (Laravel 5.6)
 
 You can create a new DOMPDF instance and load a HTML string, file or view name. You can save it to a file, or stream (show in browser) or download.
 
-    $pdf = App::make('dompdf.wrapper');
+	$pdf = app()->make('dompdf.wrapper');
     $pdf->loadHTML('<h1>Test</h1>');
     return $pdf->stream();
 
 Or use the facade:
 
-    $pdf = PDF::loadView('pdf.invoice', $data);
+    $pdf->loadView('pdf.invoice', $data);
     return $pdf->download('invoice.pdf');
 
 You can chain the methods:
 
-    return PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
+    return $pdf->loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
 
 You can change the orientation and paper size, and hide or show errors (by default, errors are shown when debug is on)
 
-    PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
+    $pdf->loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
 
 If you need the output as a string, you can get the rendered PDF with the output() function, so you can save/output it yourself.
 
@@ -65,7 +65,7 @@ The defaults configuration settings are set in `config/dompdf.php`. Copy this fi
 
 You can still alter the dompdf options in your code before generating the pdf using this command:
 
-    PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+    $pdf->setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
     
 Available options and their defaults:
 * __rootDir__: "{app_directory}/vendor/dompdf/dompdf"
