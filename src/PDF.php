@@ -215,7 +215,16 @@ class PDF{
         $this->rendered = true;
     }
 
-
+    
+    protected function setEncryption($password) {
+       if (!$this->dompdf) {
+           throw new Exception("DOMPDF not created yet");
+       }
+       $this->render();
+       return $this->dompdf->getCanvas()->get_cpdf()->setEncryption("pass", $password);
+    }
+    
+    
     protected function convertEntities($subject){
         $entities = array(
             '€' => '&#0128;',
