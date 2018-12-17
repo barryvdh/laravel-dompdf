@@ -221,7 +221,7 @@ class PDF{
            throw new Exception("DOMPDF not created yet");
        }
        $this->render();
-       return $this->dompdf->get_canvas()->get_cpdf()->setEncryption("pass", $password);
+       return $this->dompdf->getCanvas()->get_cpdf()->setEncryption("pass", $password);
     }
     
     
