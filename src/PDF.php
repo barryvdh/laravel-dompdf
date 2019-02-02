@@ -169,7 +169,8 @@ class PDF{
         $output = $this->output();
         return new Response($output, 200, array(
                 'Content-Type' => 'application/pdf',
-                'Content-Disposition' =>  'attachment; filename="'.$filename.'"'
+                'Content-Disposition' =>  'attachment; filename="'.$filename.'"',
+                'Content-Length' => strlen($output),
             ));
     }
 
