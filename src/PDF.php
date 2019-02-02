@@ -217,7 +217,7 @@ class PDF{
     }
 
     
-    protected function setEncryption($password) {
+    public function setEncryption($password) {
        if (!$this->dompdf) {
            throw new Exception("DOMPDF not created yet");
        }
