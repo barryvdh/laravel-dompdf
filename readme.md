@@ -68,34 +68,37 @@ You can still alter the dompdf options in your code before generating the pdf us
     PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
     
 Available options and their defaults:
-* __rootDir__: "{app_directory}/vendor/dompdf/dompdf"
-* __tempDir__: "/tmp" _(available in config/dompdf.php)_
-* __fontDir__: "{app_directory}/storage/fonts/" _(available in config/dompdf.php)_
-* __fontCache__: "{app_directory}/storage/fonts/" _(available in config/dompdf.php)_
-* __chroot__: "{app_directory}" _(available in config/dompdf.php)_
-* __logOutputFile__: "/tmp/log.htm"
-* __defaultMediaType__: "screen" _(available in config/dompdf.php)_
-* __defaultPaperSize__: "a4" _(available in config/dompdf.php)_
-* __defaultFont__: "serif" _(available in config/dompdf.php)_
-* __dpi__: 96 _(available in config/dompdf.php)_
-* __fontHeightRatio__: 1.1 _(available in config/dompdf.php)_
-* __isPhpEnabled__: false _(available in config/dompdf.php)_
-* __isRemoteEnabled__: true _(available in config/dompdf.php)_
-* __isJavascriptEnabled__: true _(available in config/dompdf.php)_
-* __isHtml5ParserEnabled__: false _(available in config/dompdf.php)_
-* __isFontSubsettingEnabled__: false _(available in config/dompdf.php)_
-* __debugPng__: false
-* __debugKeepTemp__: false
-* __debugCss__: false
-* __debugLayout__: false
-* __debugLayoutLines__: true
-* __debugLayoutBlocks__: true
-* __debugLayoutInline__: true
-* __debugLayoutPaddingBox__: true
-* __pdfBackend__: "CPDF" _(available in config/dompdf.php)_
-* __pdflibLicense__: ""
-* __adminUsername__: "user"
-* __adminPassword__: "password"
+
+option | default value
+------------ | -------------
+__rootDir__ | `{app_directory}/vendor/dompdf/dompdf`
+__tempDir__ | `/tmp` _(available in config/dompdf.php)_
+__fontDir__ | `{app_directory}/storage/fonts/` _(available in config/dompdf.php)_
+__fontCache__ | `{app_directory}/storage/fonts/` _(available in config/dompdf.php)_
+__chroot__ | `{app_directory}` _(available in config/dompdf.php)_
+__logOutputFile__ | `/tmp/log.htm`
+__defaultMediaType__ | `screen` _(available in config/dompdf.php)_
+__defaultPaperSize__ | `a4` _(available in config/dompdf.php)_
+__defaultFont__ | `serif` _(available in config/dompdf.php)_
+__dpi__ | `96` _(available in config/dompdf.php)_
+__fontHeightRatio__ | `1.1` _(available in config/dompdf.php)_
+__isPhpEnabled__ | `false` _(available in config/dompdf.php)_
+__isRemoteEnabled__ | `true` _(available in config/dompdf.php)_
+__isJavascriptEnabled__ | `true` _(available in config/dompdf.php)_
+__isHtml5ParserEnabled__ | `false` _(available in config/dompdf.php)_
+__isFontSubsettingEnabled__ | `false` _(available in config/dompdf.php)_
+__debugPng__ | `false`
+__debugKeepTemp__ | `false`
+__debugCss__ | `false`
+__debugLayout__ | `false`
+__debugLayoutLines__ | `true`
+__debugLayoutBlocks__ | `true`
+__debugLayoutInline__ | `true`
+__debugLayoutPaddingBox__ | `true`
+__pdfBackend__ | `CPDF` _(available in config/dompdf.php)_
+__pdflibLicense__ | `''`
+__adminUsername__ | `user`
+__adminPassword__ | `password`
 
 ### Tip: UTF-8 support
 In your templates, set the UTF-8 Metatag:
