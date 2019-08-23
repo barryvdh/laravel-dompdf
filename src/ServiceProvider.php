@@ -3,6 +3,7 @@ namespace Barryvdh\DomPDF;
 
 use Dompdf\Dompdf;
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class ServiceProvider extends IlluminateServiceProvider
@@ -66,7 +67,7 @@ class ServiceProvider extends IlluminateServiceProvider
      */
     protected function isLumen()
     {
-        return str_contains($this->app->version(), 'Lumen') === true;
+        return Str::contains($this->app->version(), 'Lumen') === true;
     }
 
     public function boot()
