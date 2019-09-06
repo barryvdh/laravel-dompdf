@@ -105,6 +105,19 @@ class PDF{
         $this->rendered = false;
         return $this;
     }
+    
+    /**
+     * Add metadata info
+     *
+     * @param array $info
+     * @return static
+     */
+    public function addInfo($info){
+        foreach($info as $name=>$value){
+            $this->dompdf->add_info($name, $value);
+        }
+        return $this;
+    }
 
     /**
      * Load a View and convert to HTML
