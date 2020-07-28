@@ -14,11 +14,12 @@ markComment: >
   recent activity. It will be closed if no further activity occurs. Thank you
   for your contributions.
   
-  Most issues are actually related to DompDF (eg rendering the PDF itself),
-  so please raise an issue there: https://github.com/dompdf/dompdf
+  Any issues with PDF rendering itself that are not directly related to this package, 
+  should be reported on https://github.com/dompdf/dompdf instead. 
+  When having doubts, please try to reproduce the issue with just dompdf.
   
-  If you believe this is still an actual issue with this
-  library, please reply to this issue.
+  If you believe this is an actual issue with this laravel-dompdf, 
+  please reply to this issue so we can investigate further.
 # Comment to post when closing a stale issue. Set to `false` to disable
 closeComment: false
 # Limit to only `issues` or `pulls`
