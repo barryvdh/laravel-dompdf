@@ -3,6 +3,22 @@ namespace Barryvdh\DomPDF;
 
 use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
+/**
+ * @method static \Barryvdh\DomPDF\PDF setPaper($paper, $orientation = 'portrait')
+ * @method static \Barryvdh\DomPDF\PDF setWarnings($warnings)
+ * @method static \Barryvdh\DomPDF\PDF setOptions(array $options)
+ * @method static \Barryvdh\DomPDF\PDF loadView($view, $data = array(), $mergeData = array(), $encoding = null)
+ * @method static \Barryvdh\DomPDF\PDF loadHTML($string, $encoding = null)
+ * @method static \Barryvdh\DomPDF\PDF loadFile($file)
+ * @method static \Barryvdh\DomPDF\PDF addInfo($info)
+ * @method static string output()
+ * @method static \Barryvdh\DomPDF\PDF save()
+ * @method static \Illuminate\Http\Response download($filename = 'document.pdf')
+ * @method static \Illuminate\Http\Response stream($filename = 'document.pdf')
+ *
+ * Class Facade
+ * @package Barryvdh\DomPDF
+ */
 class Facade extends IlluminateFacade {
 
     /**
