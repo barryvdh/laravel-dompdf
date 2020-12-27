@@ -10,9 +10,9 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": "^7.1 || ^8.0",
         "illuminate/support": "^5.5|^6|^7|^8",
-        "dompdf/dompdf": "^0.8.6|^1"
+        "dompdf/dompdf": "^1"
     },
 
     "autoload": {
@@ -22,7 +22,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.8-dev"
+            "dev-master": "0.9-dev"
         },
         "laravel": {
             "providers": [
