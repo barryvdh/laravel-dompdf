@@ -2,6 +2,8 @@
 
 ### Laravel wrapper for [Dompdf HTML to PDF Converter](https://github.com/dompdf/dompdf)
 
+![Tests](https://github.com/barryvdh/laravel-dompdf/workflows/Tests/badge.svg)
+
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
     composer require barryvdh/laravel-dompdf
