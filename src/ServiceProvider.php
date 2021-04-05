@@ -28,8 +28,8 @@ class ServiceProvider extends IlluminateServiceProvider
         $configPath = __DIR__ . '/../config/dompdf.php';
         $this->mergeConfigFrom($configPath, 'dompdf');
 
-        $this->app->bind('dompdf.options', function () {
-            $defines = $this->app['config']->get('dompdf.defines');
+        $this->app->bind('dompdf.options', function ($app) {
+            $defines = $app['config']->get('dompdf.defines');
 
             if ($defines) {
                 $options = [];
@@ -38,15 +38,15 @@ class ServiceProvider extends IlluminateServiceProvider
                     $options[$key] = $value;
                 }
             } else {
-                $options = $this->app['config']->get('dompdf.options');
+                $options = $app['config']->get('dompdf.options');
             }
 
             return $options;
         });
 
-        $this->app->bind('dompdf', function () {
+        $this->app->bind('dompdf', function ($app) {
 
-            $options = $this->app->make('dompdf.options');
+            $options = $app->make('dompdf.options');
             $dompdf = new Dompdf($options);
             $dompdf->setBasePath(realpath(base_path('public')));
 
