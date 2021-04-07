@@ -253,7 +253,7 @@ class PDF
     protected function convertEntities($subject)
     {
         $entities = array(
-            '€' => '&#0128;',
+            '€' => '&euro;',
             '£' => '&pound;',
         );
 
