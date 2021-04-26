@@ -4,6 +4,7 @@ namespace Barryvdh\DomPDF;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use ArPHP\I18N\Arabic;
 use Exception;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Contracts\View\Factory as ViewFactory;
@@ -140,6 +141,12 @@ class PDF
     public function loadView($view, $data = array(), $mergeData = array(), $encoding = null)
     {
         $html = $this->view->make($view, $data, $mergeData)->render();
+        $Arabic = new Arabic();
+        $p = $Arabic->arIdentify($html);
+        for ($i = count($p)-1; $i >= 0; $i-=2) {
+            $utf8ar = $Arabic->utf8Glyphs(substr($html, $p[$i-1], $p[$i] - $p[$i-1]));
+            $html   = substr_replace($html, $utf8ar, $p[$i-1], $p[$i] - $p[$i-1]);
+        }
         return $this->loadHTML($html, $encoding);
     }
 
