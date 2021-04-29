@@ -159,14 +159,16 @@ class PDF
     /**
      * Output the PDF as a string.
      *
+     * @param array $options
+     *
      * @return string The rendered PDF as string
      */
-    public function output()
+    public function output($options = [])
     {
         if (!$this->rendered) {
             $this->render();
         }
-        return $this->dompdf->output();
+        return $this->dompdf->output($options);
     }
 
     /**
