@@ -2,6 +2,7 @@
 
 namespace Barryvdh\DomPDF;
 
+use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Exception;
@@ -31,8 +32,13 @@ class PDF
     /** @var \Illuminate\Contracts\View\Factory  */
     protected $view;
 
+    /** @var bool */
     protected $rendered = false;
+
+    /** @var bool */
     protected $showWarnings;
+
+    /** @var string */
     protected $public_path;
 
     /**
@@ -56,7 +62,7 @@ class PDF
      *
      * @return Dompdf
      */
-    public function getDomPDF()
+    public function getDomPDF(): Dompdf
     {
         return $this->dompdf;
     }
@@ -64,11 +70,9 @@ class PDF
     /**
      * Set the paper size (default A4)
      *
-     * @param string|array $paper
-     * @param string $orientation
-     * @return $this
+     * @param string|array<string> $paper
      */
-    public function setPaper($paper, $orientation = 'portrait')
+    public function setPaper($paper, string $orientation = 'portrait'): self
     {
         $this->dompdf->setPaper($paper, $orientation);
         return $this;
@@ -76,11 +80,8 @@ class PDF
 
     /**
      * Show or hide warnings
-     *
-     * @param bool $warnings
-     * @return $this
      */
-    public function setWarnings($warnings)
+    public function setWarnings(bool $warnings): self
     {
         $this->showWarnings = $warnings;
         return $this;
@@ -89,11 +90,9 @@ class PDF
     /**
      * Load a HTML string
      *
-     * @param string $string
-     * @param string $encoding Not used yet
-     * @return static
+     * @param string|null $encoding Not used yet
      */
-    public function loadHTML($string, $encoding = null)
+    public function loadHTML(string $string, ?string $encoding = null): self
     {
         $string = $this->convertEntities($string);
         $this->dompdf->loadHtml($string, $encoding);
@@ -103,11 +102,8 @@ class PDF
 
     /**
      * Load a HTML file
-     *
-     * @param string $file
-     * @return static
      */
-    public function loadFile($file)
+    public function loadFile(string $file): self
     {
         $this->dompdf->loadHtmlFile($file);
         $this->rendered = false;
@@ -116,11 +112,10 @@ class PDF
 
     /**
      * Add metadata info
-     *
-     * @param array $info
+     * @param array<string, string> $info
      * @return static
      */
-    public function addInfo($info)
+    public function addInfo(array $info): self
     {
         foreach ($info as $name => $value) {
             $this->dompdf->add_info($name, $value);
@@ -130,14 +125,11 @@ class PDF
 
     /**
      * Load a View and convert to HTML
-     *
-     * @param string $view
-     * @param array $data
-     * @param array $mergeData
-     * @param string $encoding Not used yet
-     * @return static
+     * @param array<string, mixed> $data
+     * @param array<string, mixed> $mergeData
+     * @param string|null $encoding Not used yet
      */
-    public function loadView($view, $data = array(), $mergeData = array(), $encoding = null)
+    public function loadView(string $view, array $data = [], array $mergeData = [], ?string $encoding = null): self
     {
         $html = $this->view->make($view, $data, $mergeData)->render();
         return $this->loadHTML($html, $encoding);
@@ -146,10 +138,9 @@ class PDF
     /**
      * Set/Change an option in DomPdf
      *
-     * @param array $options
-     * @return static
+     * @param array<string, mixed> $options
      */
-    public function setOptions(array $options)
+    public function setOptions(array $options): self
     {
         $options = new Options($options);
         $this->dompdf->setOptions($options);
@@ -164,25 +155,22 @@ class PDF
      * 'compress' = > 1 or 0 - apply content stream compression, this is
      *    on (1) by default
      *
-     * @param array $options
+     * @param array<string, int> $options
      *
      * @return string The rendered PDF as string
      */
-    public function output($options = [])
+    public function output(array $options = []): string
     {
         if (!$this->rendered) {
             $this->render();
         }
-        return $this->dompdf->output($options);
+        return (string) $this->dompdf->output($options);
     }
 
     /**
      * Save the PDF to a file
-     *
-     * @param $filename
-     * @return static
      */
-    public function save($filename)
+    public function save(string $filename): self
     {
         $this->files->put($filename, $this->output());
         return $this;
@@ -190,44 +178,34 @@ class PDF
 
     /**
      * Make the PDF downloadable by the user
-     *
-     * @param string $filename
-     * @return \Illuminate\Http\Response
      */
-    public function download($filename = 'document.pdf')
+    public function download(string $filename = 'document.pdf'): Response
     {
         $output = $this->output();
-        return new Response($output, 200, array(
-                'Content-Type' => 'application/pdf',
-                'Content-Disposition' =>  'attachment; filename="' . $filename . '"',
-                'Content-Length' => strlen($output),
-            ));
+        return new Response($output, 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' =>  'attachment; filename="' . $filename . '"',
+            'Content-Length' => strlen($output),
+        ]);
     }
 
     /**
      * Return a response with the PDF to show in the browser
-     *
-     * @param string $filename
-     * @return \Illuminate\Http\Response
      */
-    public function stream($filename = 'document.pdf')
+    public function stream(string $filename = 'document.pdf'): Response
     {
         $output = $this->output();
-        return new Response($output, 200, array(
+        return new Response($output, 200, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' =>  'inline; filename="' . $filename . '"',
-        ));
+        ]);
     }
 
     /**
      * Render the PDF
      */
-    public function render()
+    public function render(): void
     {
-        if (!$this->dompdf) {
-            throw new Exception('DOMPDF not created yet');
-        }
-
         $this->dompdf->render();
 
         if ($this->showWarnings) {
@@ -246,25 +224,27 @@ class PDF
         $this->rendered = true;
     }
 
-    public function setEncryption($password, $ownerpassword = '', $pc = []) 
+    /** @param array<string> $pc */
+    public function setEncryption(string $password, string $ownerpassword = '', array $pc = []): void
     {
-       if (!$this->dompdf) {
-           throw new Exception("DOMPDF not created yet");
-       }
-       $this->render();
-       return $this->dompdf->getCanvas()->get_cpdf()->setEncryption($password, $ownerpassword, $pc);
+        $this->render();
+        $canvas = $this->dompdf->getCanvas();
+        if (! $canvas instanceof CPDF) {
+            throw new \RuntimeException('Encryption is only supported when using CPDF');
+        }
+        $canvas->get_cpdf()->setEncryption($password, $ownerpassword, $pc);
     }
 
-    protected function convertEntities($subject) 
+    protected function convertEntities(string $subject): string
     {
         if (false === $this->config->get('dompdf.convert_entities', true)) {
             return $subject;
         }
 
-        $entities = array(
+        $entities = [
             '€' => '&euro;',
             '£' => '&pound;',
-        );
+        ];
 
         foreach ($entities as $search => $replace) {
             $subject = str_replace($search, $replace, $subject);
