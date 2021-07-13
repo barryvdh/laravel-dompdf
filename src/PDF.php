@@ -225,10 +225,6 @@ class PDF
      */
     public function render()
     {
-        if (!$this->dompdf) {
-            throw new Exception('DOMPDF not created yet');
-        }
-
         $this->dompdf->render();
 
         if ($this->showWarnings) {
@@ -249,9 +245,6 @@ class PDF
 
     public function setEncryption($password, $ownerpassword = '', $pc = [])
     {
-        if (!$this->dompdf) {
-            throw new Exception("DOMPDF not created yet");
-        }
         $this->render();
         $canvas = $this->dompdf->getCanvas();
         if (! $canvas instanceof CPDF) {
