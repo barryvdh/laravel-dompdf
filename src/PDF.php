@@ -64,7 +64,7 @@ class PDF
     /**
      * Set the paper size (default A4)
      *
-     * @param string $paper
+     * @param string|array $paper
      * @param string $orientation
      * @return $this
      */
