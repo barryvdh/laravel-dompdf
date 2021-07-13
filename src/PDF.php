@@ -159,14 +159,21 @@ class PDF
     /**
      * Output the PDF as a string.
      *
+     * The options parameter controls the output. Accepted options are:
+     *
+     * 'compress' = > 1 or 0 - apply content stream compression, this is
+     *    on (1) by default
+     *
+     * @param array $options
+     *
      * @return string The rendered PDF as string
      */
-    public function output()
+    public function output($options = [])
     {
         if (!$this->rendered) {
             $this->render();
         }
-        return $this->dompdf->output();
+        return $this->dompdf->output($options);
     }
 
     /**
