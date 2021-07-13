@@ -255,8 +255,11 @@ class PDF
        return $this->dompdf->getCanvas()->get_cpdf()->setEncryption($password, $ownerpassword, $pc);
     }
 
-    protected function convertEntities($subject)
+    protected function convertEntities($subject) 
     {
+        if (false === $this->config->get('dompdf.convert_entities', true)) {
+            return $subject;
+        }
 
         $entities = array(
             '€' => '&euro;',
