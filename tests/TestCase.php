@@ -15,11 +15,19 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
         View::addLocation(__DIR__.'/views');
     }
 
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     * @return string[]
+     */
     protected function getPackageProviders($app)
     {
         return [ServiceProvider::class];
     }
 
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     * @return string[]
+     */
     protected function getPackageAliases($app)
     {
         return [

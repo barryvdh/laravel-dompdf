@@ -5,7 +5,7 @@ parameters:
     paths:
         - src
         - tests
-    level: 5
+    level: 8
     ignoreErrors:
         # This is a global alias that cannot be detected by Larastan.
         - '#Call to static method loadHtml\(\) on an unknown class PDF\.#'
