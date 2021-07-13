@@ -215,7 +215,7 @@ class PDF
     /**
      * Render the PDF
      */
-    protected function render()
+    public function render()
     {
         if (!$this->dompdf) {
             throw new Exception('DOMPDF not created yet');
