@@ -47,5 +47,8 @@ jobs:
         composer require "laravel/framework:${{ matrix.laravel }}" --no-update --no-progress
         composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress
 
+    - name: Run Static Analysis
+      run: composer phpstan
+
     - name: Execute Unit Tests
       run: composer test
