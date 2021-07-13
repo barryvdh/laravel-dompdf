@@ -17,7 +17,8 @@
     "require-dev": {
         "orchestra/testbench": "^4|^5|^6",
         "squizlabs/php_codesniffer": "^3.5",
-        "phpro/grumphp": "^1"
+        "phpro/grumphp": "^1",
+        "nunomaduro/larastan": "^0.7.10"
     },
     "autoload": {
         "psr-4": {
@@ -45,7 +46,8 @@
     "scripts": {
         "test": "phpunit",
         "check-style": "phpcs -p --standard=psr12 src/",
-        "fix-style": "phpcbf -p --standard=psr12 src/"
+        "fix-style": "phpcbf -p --standard=psr12 src/",
+        "phpstan": "phpstan analyze --memory-limit=-1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

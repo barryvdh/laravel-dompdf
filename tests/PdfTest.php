@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 
 class PdfTest extends TestCase
 {
-    public function testAlias()
+    public function testAlias(): void
     {
         $pdf = \PDF::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
@@ -19,7 +19,7 @@ class PdfTest extends TestCase
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
     }
 
-    public function testDownload()
+    public function testDownload(): void
     {
         $pdf = Facade::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
@@ -31,7 +31,7 @@ class PdfTest extends TestCase
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
     }
 
-    public function testStream()
+    public function testStream(): void
     {
         $pdf = Facade::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
@@ -43,7 +43,7 @@ class PdfTest extends TestCase
         $this->assertEquals('inline; filename="test.pdf"', $response->headers->get('Content-Disposition'));
     }
 
-    public function testView()
+    public function testView(): void
     {
         $pdf = Facade::loadView('test');
         /** @var Response $response */

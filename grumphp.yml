@@ -11,3 +11,12 @@ grumphp:
             ignore_patterns:
             - tests/
             triggered_by: [php]
+        phpstan:
+            autoload_file: ~
+            configuration: ~
+            level: null
+            force_patterns: [ ]
+            ignore_patterns: [ ]
+            triggered_by: [ 'php' ]
+            memory_limit: "-1"
+            use_grumphp_paths: true
