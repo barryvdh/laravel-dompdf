@@ -2,6 +2,7 @@
 
 namespace Barryvdh\DomPDF;
 
+use Dompdf\Adapter\CPDF;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use Exception;
@@ -179,7 +180,7 @@ class PDF
     /**
      * Save the PDF to a file
      *
-     * @param $filename
+     * @param string $filename
      * @return static
      */
     public function save($filename)
@@ -246,16 +247,20 @@ class PDF
         $this->rendered = true;
     }
 
-    public function setEncryption($password, $ownerpassword = '', $pc = []) 
+    public function setEncryption($password, $ownerpassword = '', $pc = [])
     {
-       if (!$this->dompdf) {
-           throw new Exception("DOMPDF not created yet");
-       }
-       $this->render();
-       return $this->dompdf->getCanvas()->get_cpdf()->setEncryption($password, $ownerpassword, $pc);
+        if (!$this->dompdf) {
+            throw new Exception("DOMPDF not created yet");
+        }
+        $this->render();
+        $canvas = $this->dompdf->getCanvas();
+        if (! $canvas instanceof CPDF) {
+            throw new \RuntimeException('Encryption is only supported when using CPDF');
+        }
+        $canvas->get_cpdf()->setEncryption($password, $ownerpassword, $pc);
     }
 
-    protected function convertEntities($subject) 
+    protected function convertEntities($subject)
     {
         if (false === $this->config->get('dompdf.convert_entities', true)) {
             return $subject;
