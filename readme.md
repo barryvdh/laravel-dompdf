@@ -38,14 +38,19 @@ To change the configuration, copy the config file to your config folder and enab
 
 You can create a new DOMPDF instance and load a HTML string, file or view name. You can save it to a file, or stream (show in browser) or download.
 
+```php
     $pdf = App::make('dompdf.wrapper');
     $pdf->loadHTML('<h1>Test</h1>');
     return $pdf->stream();
+```
+    
 
 Or use the facade:
 
+```php
     $pdf = PDF::loadView('pdf.invoice', $data);
     return $pdf->download('invoice.pdf');
+```
 
 You can chain the methods:
 
