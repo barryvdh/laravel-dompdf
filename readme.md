@@ -54,11 +54,15 @@ Or use the facade:
 
 You can chain the methods:
 
+```php
     return PDF::loadFile(public_path().'/myfile.html')->save('/path-to/my_stored_file.pdf')->stream('download.pdf');
+```
 
 You can change the orientation and paper size, and hide or show errors (by default, errors are shown when debug is on)
 
+```php
     PDF::loadHTML($html)->setPaper('a4', 'landscape')->setWarnings(false)->save('myfile.pdf')
+```
 
 If you need the output as a string, you can get the rendered PDF with the output() function, so you can save/output it yourself.
 
@@ -67,12 +71,14 @@ You can also use your ConfigProvider to set certain keys.
 
 ### Configuration
 The defaults configuration settings are set in `config/dompdf.php`. Copy this file to your own config directory to modify the values. You can publish the config using this command:
-
+```shell
     php artisan vendor:publish --provider="Barryvdh\DomPDF\ServiceProvider"
+```
 
 You can still alter the dompdf options in your code before generating the pdf using this command:
-
+```php
     PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+```
     
 Available options and their defaults:
 * __rootDir__: "{app_directory}/vendor/dompdf/dompdf"
