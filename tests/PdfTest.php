@@ -3,6 +3,7 @@
 namespace Barryvdh\DomPDF\Tests;
 
 use Barryvdh\DomPDF\Facade;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Response;
 
 class PdfTest extends TestCase
@@ -55,4 +56,18 @@ class PdfTest extends TestCase
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
     }
 
+    public function testReloadViewProducesAnException(): void
+    {
+        $html = '<div/>';
+
+        $domPdf = Facade::getFacadeRoot();
+
+        $domPdf->loadHTML($html);
+        $domPdf->render();
+
+        $domPdf->loadHTML($html);
+        $domPdf->render();
+
+        $this->assertTrue(true, 'Did not throw an exception');
+    }
 }

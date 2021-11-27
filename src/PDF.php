@@ -67,6 +67,21 @@ class PDF
         return $this->dompdf;
     }
 
+    public function setDomPDF(Dompdf $dompdf): void
+    {
+        $this->dompdf = $dompdf;
+    }
+
+    public function createDomPDF()
+    {
+        return app('dompdf');
+    }
+
+    public function resetDomPDF(): void
+    {
+        $this->setDomPDF($this->createDomPDF());
+    }
+
     /**
      * Set the paper size (default A4)
      *
@@ -94,6 +109,7 @@ class PDF
      */
     public function loadHTML(string $string, ?string $encoding = null): self
     {
+        $this->resetDomPDF();
         $string = $this->convertEntities($string);
         $this->dompdf->loadHtml($string, $encoding);
         $this->rendered = false;
@@ -105,6 +121,7 @@ class PDF
      */
     public function loadFile(string $file): self
     {
+        $this->resetDomPDF();
         $this->dompdf->loadHtmlFile($file);
         $this->rendered = false;
         return $this;
