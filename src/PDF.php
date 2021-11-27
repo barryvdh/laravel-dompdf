@@ -23,13 +23,13 @@ class PDF
     /** @var Dompdf  */
     protected $dompdf;
 
-    /** @var \Illuminate\Contracts\Config\Repository  */
+    /** @var ConfigRepository */
     protected $config;
 
-    /** @var \Illuminate\Filesystem\Filesystem  */
+    /** @var Filesystem */
     protected $files;
 
-    /** @var \Illuminate\Contracts\View\Factory  */
+    /** @var ViewFactory */
     protected $view;
 
     /** @var bool */
@@ -42,10 +42,10 @@ class PDF
     protected $public_path;
 
     /**
-     * @param Dompdf $dompdf
-     * @param \Illuminate\Contracts\Config\Repository $config
-     * @param \Illuminate\Filesystem\Filesystem $files
-     * @param \Illuminate\Contracts\View\Factory $view
+     * @param Dompdf           $dompdf
+     * @param ConfigRepository $config
+     * @param Filesystem       $files
+     * @param ViewFactory      $view
      */
     public function __construct(Dompdf $dompdf, ConfigRepository $config, Filesystem $files, ViewFactory $view)
     {
@@ -182,7 +182,7 @@ class PDF
     public function download(string $filename = 'document.pdf'): Response
     {
         $output = $this->output();
-        return new Response($output, 200, [
+        return new Response($output, Response::HTTP_OK, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' =>  'attachment; filename="' . $filename . '"',
             'Content-Length' => strlen($output),
@@ -195,7 +195,7 @@ class PDF
     public function stream(string $filename = 'document.pdf'): Response
     {
         $output = $this->output();
-        return new Response($output, 200, [
+        return new Response($output, Response::HTTP_OK, [
             'Content-Type' => 'application/pdf',
             'Content-Disposition' =>  'inline; filename="' . $filename . '"',
         ]);
@@ -210,7 +210,7 @@ class PDF
 
         if ($this->showWarnings) {
             global $_dompdf_warnings;
-            if (!empty($_dompdf_warnings) && count($_dompdf_warnings)) {
+            if (!empty($_dompdf_warnings) && is_iterable($_dompdf_warnings)) {
                 $warnings = '';
                 foreach ($_dompdf_warnings as $msg) {
                     $warnings .= $msg . "\n";
