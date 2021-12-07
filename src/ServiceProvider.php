@@ -58,6 +58,13 @@ class ServiceProvider extends IlluminateServiceProvider
             }
             $dompdf->setBasePath($path);
 
+            $defaults = $app['config']->get('dompdf.setters', []);
+            foreach ($defaults as $key => $value) {
+                if (in_array(substr($key, 0, 3), ['set', 'ena']) && method_exists($dompdf, $key)) {
+                    $dompdf->$key($value);
+                }
+            }
+
             return $dompdf;
         });
         $this->app->alias('dompdf', Dompdf::class);

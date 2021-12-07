@@ -55,4 +55,21 @@ class PdfTest extends TestCase
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
     }
 
+
+    public function testDompdfDefaultMethods(): void
+    {
+        $callback = function(){};
+        $context = stream_context_create(['ssl'=>['verify_peer' => false, 'verify_peer_name' => false, 'allow_self_signed' => true]]);
+        config(['dompdf.setters' => [
+            'set_http_context' => $context,
+            'set_callbacks' => [['event' => 'test', 'f' => $callback]],
+        ]]);
+
+        $pdf = Facade::loadView('test');
+
+        $this->assertEquals($context, $pdf->getDomPDF()->getHttpContext());
+        $this->assertEquals(['test' => [$callback]], $pdf->getDomPDF()->getCallbacks());
+
+    }
+
 }

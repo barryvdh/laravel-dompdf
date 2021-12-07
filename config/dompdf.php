@@ -73,7 +73,7 @@ return array(
          * should be an absolute path.
          * This is only checked on command line call by dompdf.php, but not by
          * direct class use like:
-         * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
+         * $dompdf = new DOMPDF(); $dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
          */
         "chroot" => realpath(base_path()),
 
@@ -244,5 +244,11 @@ return array(
         "enable_html5_parser" => false,
     ),
 
+    /**
+     * Set some default values for Dompdf setters when they aren't available on defines, but the methods
+     * exists on Dompdf class, example: 'set_http_context', 'set_callbacks', 'set_host', 'enable_caching'
+     */
+    'setters' => array(
 
+    ),
 );
