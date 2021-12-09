@@ -136,7 +136,9 @@ class PDF
     }
 
     /**
-     * Set/Change an option in DomPdf
+     * Set the options in DomPdf
+     *
+     * This will override all the options in DomPdf
      *
      * @param array<string, mixed> $options
      */
