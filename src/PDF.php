@@ -142,8 +142,12 @@ class PDF
      */
     public function setOptions(array $options): self
     {
-        $options = new Options($options);
-        $this->dompdf->setOptions($options);
+        $opts = $this->dompdf->getOptions();
+
+        foreach ($options as $key=>$value) {
+            $opts->set($key, $value);
+        }
+
         return $this;
     }
 
