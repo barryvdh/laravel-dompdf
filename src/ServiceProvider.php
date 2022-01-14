@@ -9,7 +9,6 @@ use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -52,7 +51,7 @@ class ServiceProvider extends IlluminateServiceProvider
 
             $options = $app->make('dompdf.options');
             $dompdf = new Dompdf($options);
-            $path = realpath(base_path('public'));
+            $path = realpath($options['base_path'] ?? null) ?? realpath(base_path('public'));
             if ($path === false) {
                 throw new \RuntimeException('Cannot resolve public path');
             }

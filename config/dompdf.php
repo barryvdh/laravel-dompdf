@@ -73,9 +73,14 @@ return array(
          * should be an absolute path.
          * This is only checked on command line call by dompdf.php, but not by
          * direct class use like:
-         * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
+         * $dompdf = new DOMPDF(); $dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
          */
         "chroot" => realpath(base_path()),
+
+        /**
+         * The base path where the own fonts are load
+         */
+        "base_path" => realpath(base_path('public')),
 
         /**
          * Whether to enable font subsetting or not.
