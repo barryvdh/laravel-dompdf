@@ -39,7 +39,7 @@
                 "Barryvdh\\DomPDF\\ServiceProvider"
             ],
             "aliases": {
-                "PDF": "Barryvdh\\DomPDF\\Facade"
+                "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf"
             }
         }
     },
@@ -50,5 +50,10 @@
         "phpstan": "phpstan analyze --memory-limit=-1"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp": true
+        }
+    }
 }
