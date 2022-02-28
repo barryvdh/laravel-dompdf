@@ -48,7 +48,7 @@ class ServiceProvider extends IlluminateServiceProvider
 
             $options = $app->make('dompdf.options');
             $dompdf = new Dompdf($options);
-            $dompdf->setBasePath(realpath(base_path('public')));
+            $dompdf->setBasePath(realpath(public_path()));
 
             return $dompdf;
         });
