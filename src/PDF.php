@@ -87,6 +87,17 @@ class PDF
     }
 
     /**
+     * Sets the HTTP context
+     *
+     * @param resource|array $httpContext
+     */
+    public function setHttpContext($httpContext)
+    {
+        $this->dompdf->setHttpContext($httpContext);
+        return $this;
+    }
+
+    /**
      * Load a HTML string
      *
      * @param string|null $encoding Not used yet
