@@ -57,6 +57,11 @@ class ServiceProvider extends IlluminateServiceProvider
             }
             $dompdf->setBasePath($path);
 
+            $httpContext = $app['config']->get('dompdf.http_context');
+            if (is_array($httpContext)) {
+                $dompdf->setHttpContext(stream_context_create($httpContext));
+            }
+
             return $dompdf;
         });
         $this->app->alias('dompdf', Dompdf::class);
