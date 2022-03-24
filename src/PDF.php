@@ -19,7 +19,6 @@ use Illuminate\Http\Response;
  */
 class PDF
 {
-
     /** @var Dompdf  */
     protected $dompdf;
 

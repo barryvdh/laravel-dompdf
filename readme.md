@@ -2,25 +2,20 @@
 
 ### Laravel wrapper for [Dompdf HTML to PDF Converter](https://github.com/dompdf/dompdf)
 
-![Tests](https://github.com/barryvdh/laravel-dompdf/workflows/Tests/badge.svg)
+[![Tests](https://github.com/barryvdh/laravel-dompdf/workflows/Tests/badge.svg)](https://github.com/barryvdh/laravel-dompdf/actions)
+[![Packagist License](https://poser.pugx.org/barryvdh/laravel-dompdf/license.png)](http://choosealicense.com/licenses/mit/)
+[![Latest Stable Version](https://poser.pugx.org/barryvdh/laravel-dompdf/version.png)](https://packagist.org/packages/barryvdh/laravel-dompdf)
+[![Total Downloads](https://poser.pugx.org/barryvdh/laravel-dompdf/d/total.png)](https://packagist.org/packages/barryvdh/laravel-dompdf)
+[![Fruitcake](https://img.shields.io/badge/Powered%20By-Fruitcake-b2bc35.svg)](https://fruitcake.nl/)
 
+## Installation
+
+### Laravel
 Require this package in your composer.json and update composer. This will download the package and the dompdf + fontlib libraries also.
 
     composer require barryvdh/laravel-dompdf
 
-## Installation
-
-### Laravel 5.x:
-
-After updating composer, add the ServiceProvider to the providers array in config/app.php
-
-    Barryvdh\DomPDF\ServiceProvider::class,
-
-You can optionally use the facade for shorter code. Add this to your facades:
-
-    'PDF' => Barryvdh\DomPDF\Facade::class,
-
-### Lumen:
+### Lumen
 
 After updating composer add the following lines to register provider in `bootstrap/app.php`
 
@@ -43,11 +38,12 @@ You can create a new DOMPDF instance and load a HTML string, file or view name. 
     $pdf->loadHTML('<h1>Test</h1>');
     return $pdf->stream();
 ```
-    
 
 Or use the facade:
 
 ```php
+    use Barryvdh\DomPDF\Facade\Pdf;
+
     $pdf = PDF::loadView('pdf.invoice', $data);
     return $pdf->download('invoice.pdf');
 ```
