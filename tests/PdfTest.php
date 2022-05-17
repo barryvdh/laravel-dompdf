@@ -4,6 +4,7 @@ namespace Barryvdh\DomPDF\Tests;
 
 use Barryvdh\DomPDF\Facade;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 
 class PdfTest extends TestCase
 {
@@ -77,6 +78,26 @@ class PdfTest extends TestCase
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+    }
+
+    public function testPaperDefault(): void
+    {
+        $pdf = Facade::loadHtml('<h1>Test</h1>');
+        $this->assertSame('portrait', $pdf->getDomPDF()->getPaperOrientation());
+    }
+
+    public function testSetPaper(): void
+    {
+        $pdf = Facade::loadHtml('<h1>Test</h1>');
+        $pdf->setPaper('A4', 'landscape');
+        $this->assertSame('landscape', $pdf->getDomPDF()->getPaperOrientation());
+    }
+
+    public function testSetPaperTroughConfig(): void
+    {
+        Config::set('dompdf.orientation', 'landscape');
+        $pdf = Facade::loadHtml('<h1>Test</h1>');
+        $this->assertSame('landscape', $pdf->getDomPDF()->getPaperOrientation());
     }
 
 }
