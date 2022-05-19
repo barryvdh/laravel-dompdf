@@ -51,7 +51,7 @@ class ServiceProvider extends IlluminateServiceProvider
 
             $options = $app->make('dompdf.options');
             $dompdf = new Dompdf($options);
-            $path = realpath(public_path());
+            $path = realpath(base_path('public'));
             if ($path === false) {
                 throw new \RuntimeException('Cannot resolve public path');
             }
