@@ -51,13 +51,13 @@ class ServiceProvider extends IlluminateServiceProvider
 
             $options = $app->make('dompdf.options');
             $dompdf = new Dompdf($options);
-
             $dompdf->setPaper(
                 $options['default_paper_size'] ?? 'a4',
                 $app['config']->get('dompdf.orientation', 'portrait')
             );
 
-            $path = realpath(public_path());
+            $path = realpath(base_path('public'));
+
             if ($path === false) {
                 throw new \RuntimeException('Cannot resolve public path');
             }
