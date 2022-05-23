@@ -44,7 +44,7 @@ Or use the facade:
 ```php
     use Barryvdh\DomPDF\Facade\Pdf;
 
-    $pdf = PDF::loadView('pdf.invoice', $data);
+    $pdf = Pdf::loadView('pdf.invoice', $data);
     return $pdf->download('invoice.pdf');
 ```
 
