@@ -78,6 +78,17 @@ class PDF
     }
 
     /**
+     * Set callbacks
+     *
+     * @param array<array> $callbacks
+     */
+    public function setCallbacks(array $callbacks): self
+    {
+        $this->dompdf->setCallbacks($callbacks);
+        return $this;
+    }
+
+    /**
      * Show or hide warnings
      */
     public function setWarnings(bool $warnings): self
