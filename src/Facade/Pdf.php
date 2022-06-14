@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Facade as IlluminateFacade;
 
 /**
  * @method static \Barryvdh\DomPDF\PDF setPaper($paper, $orientation = 'portrait')
+ * @method static \Barryvdh\DomPDF\PDF setBaseHost(string $baseHost)
+ * @method static \Barryvdh\DomPDF\PDF setProtocol(string $protocol)
+ * @method static \Barryvdh\DomPDF\PDF setHttpContext($httpContext)
+ * @method static \Barryvdh\DomPDF\PDF setCallbacks(array $callbacks)
  * @method static \Barryvdh\DomPDF\PDF setWarnings($warnings)
  * @method static \Barryvdh\DomPDF\PDF setOptions(array $options)
  * @method static \Barryvdh\DomPDF\PDF loadView($view, $data = array(), $mergeData = array(), $encoding = null)
