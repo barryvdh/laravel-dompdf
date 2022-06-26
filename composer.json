@@ -11,7 +11,7 @@
     ],
     "require": {
         "php": "^7.2 || ^8.0",
-        "dompdf/dompdf": "^1.2.1",
+        "dompdf/dompdf": "^2",
         "illuminate/support": "^6|^7|^8|^9"
     },
     "require-dev": {
@@ -32,7 +32,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "2.0-dev"
         },
         "laravel": {
             "providers": [
