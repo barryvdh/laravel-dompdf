@@ -13,6 +13,8 @@ return array(
     */
     'show_warnings' => false,   // Throw an Exception on warnings from dompdf
 
+    'public_path' => null,  // Override the public path if needed
+
     /*
      * Dejavu Sans font is missing glyphs for converted entities, turn it off if you need to show € and £.
      */
@@ -74,7 +76,7 @@ return array(
          * should be an absolute path.
          * This is only checked on command line call by dompdf.php, but not by
          * direct class use like:
-         * $dompdf = new DOMPDF();	$dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
+         * $dompdf = new DOMPDF();  $dompdf->load_html($htmldata); $dompdf->render(); $pdfdata = $dompdf->output();
          */
         "chroot" => realpath(base_path()),
 
