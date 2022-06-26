@@ -19,3 +19,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 - `setOptions` is now deprecated. Use `setOption` instead.
+- Config `dompdf.defines` has been renamed to `dompdf.options`
