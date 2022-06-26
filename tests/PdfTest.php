@@ -82,7 +82,7 @@ class PdfTest extends TestCase
     public function testMagicMethods(): void
     {
         $pdf = Facade::setBaseHost('host')->setProtocol('protocol')
-            ->loadView('test')->setOptions(['temp_dir' => 'test_dir'])
+            ->loadView('test')->setOption(['temp_dir' => 'test_dir'])
             ->setHttpContext(['ssl' => []]);
         /** @var Response $response */
         $response = $pdf->download('test.pdf');

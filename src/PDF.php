@@ -126,8 +126,22 @@ class PDF
     }
 
     /**
-     * Set/Change an option in DomPdf
+     * Set/Change an option (or array of options) in Dompdf
      *
+     * @param array<string, mixed>|string $attribute
+     * @param null|mixed $value
+     * @return $this
+     */
+    public function setOption($attribute, $value = null): self
+    {
+        $this->dompdf->getOptions()->set($attribute, $value);
+        return $this;
+    }
+
+    /**
+     * Replace all the Options from DomPDF
+     *
+     * @deprecated Use setOption to override individual options.
      * @param array<string, mixed> $options
      */
     public function setOptions(array $options): self
