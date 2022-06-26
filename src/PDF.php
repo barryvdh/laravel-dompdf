@@ -69,17 +69,6 @@ class PDF
     }
 
     /**
-     * Set the paper size (default A4)
-     *
-     * @param string|array<string> $paper
-     */
-    public function setPaper($paper, string $orientation = 'portrait'): self
-    {
-        $this->dompdf->setPaper($paper, $orientation);
-        return $this;
-    }
-
-    /**
      * Show or hide warnings
      */
     public function setWarnings(bool $warnings): self
