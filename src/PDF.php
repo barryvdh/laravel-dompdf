@@ -16,6 +16,8 @@ use Illuminate\Http\Response;
  *
  * @package laravel-dompdf
  * @author Barry vd. Heuvel
+ *
+ * @mixin \Dompdf\Dompdf
  */
 class PDF
 {
@@ -249,5 +251,27 @@ class PDF
             $subject = str_replace($search, $replace, $subject);
         }
         return $subject;
+    }
+
+    /**
+     * Dynamically handle calls into the dompdf instance.
+     *
+     * @param string $method
+     * @param array<mixed> $parameters
+     * @return $this|mixed
+     */
+    public function __call($method, $parameters)
+    {
+        if (method_exists($this, $method)) {
+            return $this->$method(...$parameters);
+        }
+
+        if (method_exists($this->dompdf, $method)) {
+            $return = $this->dompdf->$method(...$parameters);
+
+            return $return == $this->dompdf ? $this : $return;
+        }
+
+        throw new \UnexpectedValueException("Method [{$method}] does not exist on PDF instance.");
     }
 }

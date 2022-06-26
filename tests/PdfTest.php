@@ -79,4 +79,22 @@ class PdfTest extends TestCase
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
     }
 
+    public function testMagicMethods(): void
+    {
+        $pdf = Facade::setBaseHost('host')->setProtocol('protocol')
+            ->loadView('test')->setOptions(['temp_dir' => 'test_dir'])
+            ->setHttpContext(['ssl' => []]);
+        /** @var Response $response */
+        $response = $pdf->download('test.pdf');
+
+        $this->assertInstanceOf(\Barryvdh\DomPDF\PDF::class, $pdf);
+        $this->assertEquals('host', $pdf->getDomPDF()->getBaseHost());
+        $this->assertEquals('host', $pdf->getBaseHost());
+        $this->assertEquals('protocol', $pdf->getDomPDF()->getProtocol());
+        $this->assertEquals('protocol', $pdf->getProtocol());
+        $this->assertEquals('test_dir', $pdf->getOptions()->getTempDir());
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotEmpty($response->getContent());
+    }
 }
