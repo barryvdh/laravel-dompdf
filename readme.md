@@ -73,7 +73,7 @@ The defaults configuration settings are set in `config/dompdf.php`. Copy this fi
 
 You can still alter the dompdf options in your code before generating the pdf using this command:
 ```php
-    PDF::setOptions(['dpi' => 150, 'defaultFont' => 'sans-serif']);
+    PDF::setOption(['dpi' => 150, 'defaultFont' => 'sans-serif']);
 ```
     
 Available options and their defaults:
