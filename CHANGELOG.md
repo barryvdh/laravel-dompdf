@@ -20,3 +20,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 - `setOptions` is now deprecated. Use `setOption` instead.
 - Config `dompdf.defines` has been renamed to `dompdf.options`
+
+
+## Dompdf 2.0.0, highlights since 1.2.x
+> https://github.com/dompdf/dompdf/releases/tag/v2.0.0
+> - Addresses multiple security vulnerabilities (see link)
+> - Modifies callback and page_script/page_text handling (breaking change, see link)
+> - Switches the HTML5 parser to Masterminds/HTML5
+> - Improves CSS property parsing and representation
+> - Improves border, outline, and background rendering for inline elements
+> - Switches installed fonts and font metrics cache file format to JSON
+> - Adds support for the inset CSS shorthand property and the legacy break-word keyword for word-break
+> - Adds "end_document" callback event
