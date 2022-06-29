@@ -9,7 +9,6 @@ class PdfTest extends TestCase
 {
     public function testAlias(): void
     {
-        /* @phpstan-ignore-next-line */
         $pdf = \Pdf::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
@@ -22,7 +21,6 @@ class PdfTest extends TestCase
     
     public function testAliasCaps(): void
     {
-        /* @phpstan-ignore-next-line */
         $pdf = \PDF::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
