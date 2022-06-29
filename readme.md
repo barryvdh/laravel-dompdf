@@ -42,7 +42,7 @@ You can create a new DOMPDF instance and load a HTML string, file or view name. 
 Or use the facade:
 
 ```php
-    use Barryvdh\DomPDF\Facade\Pdf;
+    use PDF;
 
     $pdf = PDF::loadView('pdf.invoice', $data);
     return $pdf->download('invoice.pdf');

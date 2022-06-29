@@ -31,21 +31,9 @@ class PdfTest extends TestCase
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
     }
 
-    public function testDeprecatedFacade(): void
-    {
-        $pdf = Facade::loadHtml('<h1>Test</h1>');
-        /** @var Response $response */
-        $response = $pdf->download('test.pdf');
-
-        $this->assertInstanceOf(Response::class, $response);
-        $this->assertNotEmpty($response->getContent());
-        $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
-    }
-
     public function testDownload(): void
     {
-        $pdf = Facade::loadHtml('<h1>Test</h1>');
+        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
 
@@ -57,7 +45,7 @@ class PdfTest extends TestCase
 
     public function testStream(): void
     {
-        $pdf = Facade::loadHtml('<h1>Test</h1>');
+        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->stream('test.pdf');
 
@@ -69,7 +57,7 @@ class PdfTest extends TestCase
 
     public function testView(): void
     {
-        $pdf = Facade::loadView('test');
+        $pdf = Facade\Pdf::loadView('test');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
 
@@ -81,7 +69,7 @@ class PdfTest extends TestCase
 
     public function testMagicMethods(): void
     {
-        $pdf = Facade::setBaseHost('host')->setProtocol('protocol')
+        $pdf = Facade\Pdf::setBaseHost('host')->setProtocol('protocol')
             ->loadView('test')->setOption(['temp_dir' => 'test_dir'])
             ->setHttpContext(['ssl' => []]);
         /** @var Response $response */
