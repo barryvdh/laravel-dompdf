@@ -39,7 +39,7 @@
                 "Barryvdh\\DomPDF\\ServiceProvider"
             ],
             "aliases": {
-                "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf"
+                "Pdf": "Barryvdh\\DomPDF\\Facade\\Pdf"
             }
         }
     },
