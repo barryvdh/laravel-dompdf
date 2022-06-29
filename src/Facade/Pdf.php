@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Facade as IlluminateFacade;
  * @method static \Barryvdh\DomPDF\PDF setHttpContext($httpContext)
  * @method static \Barryvdh\DomPDF\PDF setCallbacks(array $callbacks)
  * @method static \Barryvdh\DomPDF\PDF setWarnings($warnings)
+ * @method static \Barryvdh\DomPDF\PDF setOption(array|string $attribute, $value = null)
  * @method static \Barryvdh\DomPDF\PDF setOptions(array $options)
  * @method static \Barryvdh\DomPDF\PDF loadView($view, $data = array(), $mergeData = array(), $encoding = null)
  * @method static \Barryvdh\DomPDF\PDF loadHTML($string, $encoding = null)
