@@ -9,6 +9,18 @@ class PdfTest extends TestCase
 {
     public function testAlias(): void
     {
+        $pdf = \Pdf::loadHtml('<h1>Test</h1>');
+        /** @var Response $response */
+        $response = $pdf->download('test.pdf');
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotEmpty($response->getContent());
+        $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
+        $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+    }
+    
+    public function testAliasCaps(): void
+    {
         $pdf = \PDF::loadHtml('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
