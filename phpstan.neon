@@ -9,5 +9,6 @@ parameters:
     ignoreErrors:
         # This is a global alias that cannot be detected by Larastan.
         - '#Call to static method loadHtml\(\) on an unknown class PDF\.#'
+        - '#Call to static method loadHtml\(\) on an unknown class Pdf\.#'
         # This is a magic method that cannot be detected by Larastan.
         - '#Call to an undefined method Dompdf\\Dompdf::loadView\(\)\.#'

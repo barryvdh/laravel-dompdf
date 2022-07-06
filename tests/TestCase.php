@@ -32,6 +32,7 @@ abstract class TestCase extends \Orchestra\Testbench\TestCase
     {
         return [
             'PDF' => Pdf::class,
+            'Pdf' => Pdf::class,
         ];
     }
 }
