@@ -114,4 +114,17 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
     }
+
+    public function testSave(): void
+    {
+        $filename = public_path().'/my_stored_file.pdf';
+
+        $pdf = Facade\Pdf::loadView('test');
+        $pdf->save($filename);
+        $this->assertTrue(file_exists($filename));
+
+        $content = file_get_contents($filename);
+        $this->assertNotEmpty($content);
+        $this->assertEquals($content, $pdf->output());
+    }
 }
