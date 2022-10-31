@@ -81,8 +81,8 @@ You can still alter the dompdf options in your code before generating the pdf us
 Available options and their defaults:
 * __rootDir__: "{app_directory}/vendor/dompdf/dompdf"
 * __tempDir__: "/tmp" _(available in config/dompdf.php)_
-* __fontDir__: "{app_directory}/storage/fonts/" _(available in config/dompdf.php)_
-* __fontCache__: "{app_directory}/storage/fonts/" _(available in config/dompdf.php)_
+* __fontDir__: "{app_directory}/storage/fonts" _(available in config/dompdf.php)_
+* __fontCache__: "{app_directory}/storage/fonts" _(available in config/dompdf.php)_
 * __chroot__: "{app_directory}" _(available in config/dompdf.php)_
 * __logOutputFile__: "/tmp/log.htm"
 * __defaultMediaType__: "screen" _(available in config/dompdf.php)_
