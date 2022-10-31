@@ -4,6 +4,7 @@ namespace Barryvdh\DomPDF\Tests;
 
 use Barryvdh\DomPDF\Facade;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class PdfTest extends TestCase
 {
@@ -77,6 +78,22 @@ class PdfTest extends TestCase
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
         $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+    }
+
+    public function testSaveOnDisk(): void
+    {
+        $disk_name = 'local';
+        $disk = Storage::disk($disk_name);
+        $filename = 'my_stored_file_on_disk.pdf';
+
+        $pdf = Facade\Pdf::loadView('test');
+        $pdf->save($filename, $disk_name);
+
+        $this->assertTrue($disk->exists($filename));
+
+        $content = $disk->get($filename);
+        $this->assertNotEmpty($content);
+        $this->assertEquals($content, $pdf->output());
     }
 
     public function testMagicMethods(): void
