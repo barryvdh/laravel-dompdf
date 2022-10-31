@@ -25,11 +25,14 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - laravel: 9.*
+            php: 8.2
+            dependency-version: prefer-stable
+          - laravel: 9.*
             php: 8.1
             dependency-version: prefer-stable
           - laravel: 9.*
             php: 8.0
-            dependency-version: prefer-lowest
+            dependency-version: prefer-stable
         exclude:
           - laravel: 8.*
             php: 7.2
