@@ -127,4 +127,16 @@ class PdfTest extends TestCase
         $this->assertNotEmpty($content);
         $this->assertEquals($content, $pdf->output());
     }
+
+    public function testMultipleInstances(): void
+    {
+        $pdf1 = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $pdf2 = Facade\Pdf::loadHtml('<h1>Test</h1>');
+
+        $pdf1->getDomPDF()->setBaseHost('host1');
+        $pdf2->getDomPDF()->setBaseHost('host2');
+
+        $this->assertEquals('host1', $pdf1->getDomPDF()->getBaseHost());
+        $this->assertEquals('host2', $pdf2->getDomPDF()->getBaseHost());
+    }
 }
