@@ -6,6 +6,7 @@ use Dompdf\Dompdf;
 use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
+use RuntimeException;
 
 class ServiceProvider extends IlluminateServiceProvider
 {
@@ -19,7 +20,7 @@ class ServiceProvider extends IlluminateServiceProvider
     /**
      * Register the service provider.
      *
-     * @throws \Exception
+     * @throws Exception
      * @return void
      */
     public function register(): void
@@ -53,7 +54,7 @@ class ServiceProvider extends IlluminateServiceProvider
             $dompdf = new Dompdf($options);
             $path = realpath($app['config']->get('dompdf.public_path') ?: base_path('public'));
             if ($path === false) {
-                throw new \RuntimeException('Cannot resolve public path');
+                throw new RuntimeException('Cannot resolve public path');
             }
             $dompdf->setBasePath($path);
 
