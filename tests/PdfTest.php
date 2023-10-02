@@ -96,6 +96,24 @@ class PdfTest extends TestCase
         $this->assertEquals($content, $pdf->output());
     }
 
+    public function testConfigOptions(): void
+    {
+        \Config::set('dompdf.options.default_font', 'default_font');
+        \Config::set('dompdf.options.log_output_file', 'default_log');
+
+        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $this->assertEquals('default_font', $pdf->getDomPDF()->getOptions()->getDefaultFont());
+        $this->assertEquals('default_log', $pdf->getDomPDF()->getOptions()->getLogOutputFile());
+
+        $pdf->setOption('default_font', 'custom_font');
+        $this->assertEquals('custom_font', $pdf->getDomPDF()->getOptions()->getDefaultFont());
+        $this->assertEquals('default_log', $pdf->getDomPDF()->getOptions()->getLogOutputFile());
+
+        $pdf->setOptions([]); // reset options to config/dompdf.php
+        $this->assertEquals('default_font', $pdf->getDomPDF()->getOptions()->getDefaultFont());
+        $this->assertEquals('default_log', $pdf->getDomPDF()->getOptions()->getLogOutputFile());
+    }
+
     public function testMagicMethods(): void
     {
         $pdf = Facade\Pdf::setBaseHost('host')->setProtocol('protocol')
