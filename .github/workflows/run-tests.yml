@@ -25,6 +25,9 @@ jobs:
         dependency-version: [prefer-lowest, prefer-stable]
         include:
           - laravel: 10.*
+            php: 8.3
+            dependency-version: prefer-stable
+          - laravel: 10.*
             php: 8.2
             dependency-version: prefer-stable
           - laravel: 10.*
