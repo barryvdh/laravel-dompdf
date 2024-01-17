@@ -223,7 +223,7 @@ class PDF
         $output = $this->output();
         return new Response($output, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' =>  'inline; filename="' . $filename . '"',
+            'Content-Disposition' =>  'inline; filename="' . rawurlencode($filename) . '"',
         ]);
     }
 
