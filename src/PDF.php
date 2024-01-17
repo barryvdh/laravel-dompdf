@@ -210,7 +210,7 @@ class PDF
         $output = $this->output();
         return new Response($output, 200, [
             'Content-Type' => 'application/pdf',
-            'Content-Disposition' =>  'attachment; filename="' . $filename . '"',
+            'Content-Disposition' =>  'attachment; filename="' . rawurlencode($filename) . '"',
             'Content-Length' => strlen($output),
         ]);
     }
