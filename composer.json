@@ -12,10 +12,10 @@
     "require": {
         "php": "^7.2 || ^8.0",
         "dompdf/dompdf": "^2.0.3",
-        "illuminate/support": "^6|^7|^8|^9|^10"
+        "illuminate/support": "^6|^7|^8|^9|^10|^11"
     },
     "require-dev": {
-        "orchestra/testbench": "^4|^5|^6|^7|^8",
+        "orchestra/testbench": "^4|^5|^6|^7|^8|^9",
         "squizlabs/php_codesniffer": "^3.5",
         "phpro/grumphp": "^1",
         "larastan/larastan": "^1.0|^2.7.0"
