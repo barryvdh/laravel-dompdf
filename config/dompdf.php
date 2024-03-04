@@ -90,7 +90,7 @@ return array(
          *
          * @var array
          */
-        'allowed_protocols' => [
+        'allowedProtocols' => [
             "file://" => ["rules" => []],
             "http://" => ["rules" => []],
             "https://" => ["rules" => []]
