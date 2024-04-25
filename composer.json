@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "^7.2 || ^8.0",
-        "dompdf/dompdf": "^2.0.3",
+        "dompdf/dompdf": "^2.0.7",
         "illuminate/support": "^6|^7|^8|^9|^10|^11"
     },
     "require-dev": {
