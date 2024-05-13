@@ -4,8 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.1]
+### What's Changed
+* Revert "Fix setOptions method" by @barryvdh in https://github.com/barryvdh/laravel-dompdf/pull/1039
+
+**Full Changelog**: https://github.com/barryvdh/laravel-dompdf/compare/v2.1.0...v2.1.1
+
 ## [2.1.0]
-## What's Changed
+### What's Changed
 * Convert phpunit by @barryvdh in https://github.com/barryvdh/laravel-dompdf/pull/952
 * ci: Use GitHub Actions V3 by @DannyvdSluijs in https://github.com/barryvdh/laravel-dompdf/pull/990
 * Fix named arguments when using facade by @erikn69 in https://github.com/barryvdh/laravel-dompdf/pull/1002
@@ -19,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Laravel 11 Support by @erikn69 in https://github.com/barryvdh/laravel-dompdf/pull/1036
 * Laravel 11.x Compatibility by @laravel-shift in https://github.com/barryvdh/laravel-dompdf/pull/1037
 
-## New Contributors
+### New Contributors
 * @DannyvdSluijs made their first contribution in https://github.com/barryvdh/laravel-dompdf/pull/990
 * @AliSheikhDev made their first contribution in https://github.com/barryvdh/laravel-dompdf/pull/967
 * @ricklambrechts made their first contribution in https://github.com/barryvdh/laravel-dompdf/pull/1004
