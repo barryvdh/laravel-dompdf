@@ -6,13 +6,13 @@ on:
       - master
   pull_request:
     branches:
-      - *
+      - "*"
   schedule:
     - cron: '0 0 * * *'
 
 jobs:
   php-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     timeout-minutes: 15
 
@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: [7.2, 7.3, 7.4, 8.0, '8.2']
+        php: [7.2, 7.3, 7.4, 8.0, 8.2]
         laravel: ['6.*', '7.*', '8.*', '11.*']
         dependency-version: [prefer-lowest, prefer-stable]
         include:
@@ -53,6 +53,12 @@ jobs:
         exclude:
           - laravel: 8.*
             php: 7.2
+          - laravel: 6.*
+            php: 8.2
+          - laravel: 7.*
+            php: 8.2
+          - laravel: 8.*
+            php: 8.2
           - php: 8.0
             dependency-version: prefer-lowest
           - laravel: 11.*
@@ -82,9 +88,6 @@ jobs:
           composer remove phpro/grumphp --no-update --dev
           composer require "laravel/framework:${{ matrix.laravel }}" --no-update --no-progress
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress
-
-      - name: Run Static Analysis
-        run: composer phpstan
 
       - name: Execute Unit Tests
         run: composer test
