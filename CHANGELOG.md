@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[2.2.0]
+## What's Changed
+* Fix setOptions by @cesarreyes3 in https://github.com/barryvdh/laravel-dompdf/pull/1040
+* Bump dompdf minimum to 2.0.7  by @barryvdh 
+
+## New Contributors
+* @cesarreyes3 made their first contribution in https://github.com/barryvdh/laravel-dompdf/pull/1040
+
+**Full Changelog**: https://github.com/barryvdh/laravel-dompdf/compare/v2.1.1...v2.2.0
+
 ## [2.1.1]
 ### What's Changed
 * Revert "Fix setOptions method" by @barryvdh in https://github.com/barryvdh/laravel-dompdf/pull/1039
