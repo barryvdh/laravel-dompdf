@@ -96,6 +96,11 @@ return array(
             "https://" => ["rules" => []]
         ],
 
+        /**
+         * Operational artifact (log files, temporary files) path validation
+         */
+         'artifactPathValidation' => null,
+
          /**
           * @var string
           */
@@ -265,6 +270,20 @@ return array(
          * @var bool
          */
         "enable_remote" => true,
+
+        /**
+         * List of allowed remote hosts
+         *
+         * Each value of the array must be a valid hostname.
+         *
+         * This will be used to filter which resources can be loaded in combination with
+         * isRemoteEnabled. If enable_remote is FALSE, then this will have no effect.
+         *
+         * Leave to NULL to allow any remote host.
+         *
+         * @var array|null
+         */
+        'allowed_remote_hosts' => null,
 
         /**
          * A ratio applied to the fonts height to be more like browsers' line height
