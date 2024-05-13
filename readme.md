@@ -91,9 +91,10 @@ Available options and their defaults:
 * __dpi__: 96 _(available in config/dompdf.php)_
 * __fontHeightRatio__: 1.1 _(available in config/dompdf.php)_
 * __isPhpEnabled__: false _(available in config/dompdf.php)_
-* __isRemoteEnabled__: true _(available in config/dompdf.php)_
+* __isRemoteEnabled__: false _(available in config/dompdf.php)_
 * __isJavascriptEnabled__: true _(available in config/dompdf.php)_
-* __isHtml5ParserEnabled__: false _(available in config/dompdf.php)_
+* __isHtml5ParserEnabled__: true _(available in config/dompdf.php)_
+* __allowedRemoteHosts__: null _(available in config/dompdf.php)_
 * __isFontSubsettingEnabled__: false _(available in config/dompdf.php)_
 * __debugPng__: false
 * __debugKeepTemp__: false
@@ -107,6 +108,9 @@ Available options and their defaults:
 * __pdflibLicense__: ""
 * __adminUsername__: "user"
 * __adminPassword__: "password"
+* __artifactPathValidation__: null _(available in config/dompdf.php)_
+
+#### Note: Since 3.x the remote access is disabled by default, to provide more security. Use with caution!
 
 ### Tip: UTF-8 support
 In your templates, set the UTF-8 Metatag:

@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+[3.0.0]
+Version 3.x supports DomPDF version 3.x. See the changelog in https://github.com/dompdf/dompdf/releases/tag/v3.0.0
+
+The most notable change in laravel-dompdf are the changed defaults, to be more secure;
+ - `enable_remote` is now `false` by default. Change with caution.
+ - `allowedRemoteHosts` and `artifactPathValidation` are added the the config.
+Also, support for Laravel < 9 and PHP < 8.1 is dropped.
 
 [2.2.0]
 ## What's Changed
