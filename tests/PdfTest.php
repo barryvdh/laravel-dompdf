@@ -10,7 +10,7 @@ class PdfTest extends TestCase
 {
     public function testAlias(): void
     {
-        $pdf = \Pdf::loadHtml('<h1>Test</h1>');
+        $pdf = \Pdf::loadHTML('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
 
@@ -22,7 +22,7 @@ class PdfTest extends TestCase
 
     public function testAliasCaps(): void
     {
-        $pdf = \PDF::loadHtml('<h1>Test</h1>');
+        $pdf = \PDF::loadHTML('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
 
@@ -34,7 +34,7 @@ class PdfTest extends TestCase
 
     public function testFacade(): void
     {
-        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $pdf = Facade\Pdf::loadHTML('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
 
@@ -46,7 +46,7 @@ class PdfTest extends TestCase
 
     public function testDownload(): void
     {
-        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $pdf = Facade\Pdf::loadHTML('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('test.pdf');
 
@@ -58,7 +58,7 @@ class PdfTest extends TestCase
 
     public function testStream(): void
     {
-        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $pdf = Facade\Pdf::loadHTML('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->stream('test.pdf');
 
@@ -82,7 +82,7 @@ class PdfTest extends TestCase
 
     public function testQuoteFilename(): void
     {
-        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $pdf = Facade\Pdf::loadHTML('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('Test file.pdf');
 
@@ -94,7 +94,7 @@ class PdfTest extends TestCase
 
     public function testFallbackFilename(): void
     {
-        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $pdf = Facade\Pdf::loadHTML('<h1>Test</h1>');
         /** @var Response $response */
         $response = $pdf->download('Test%file.pdf');
 
@@ -154,8 +154,8 @@ class PdfTest extends TestCase
 
     public function testMultipleInstances(): void
     {
-        $pdf1 = Facade\Pdf::loadHtml('<h1>Test</h1>');
-        $pdf2 = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        $pdf1 = Facade\Pdf::loadHTML('<h1>Test</h1>');
+        $pdf2 = Facade\Pdf::loadHTML('<h1>Test</h1>');
 
         $pdf1->getDomPDF()->setBaseHost('host1');
         $pdf2->getDomPDF()->setBaseHost('host2');
