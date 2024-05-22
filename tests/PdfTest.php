@@ -17,9 +17,9 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+        $this->assertEquals('attachment; filename=test.pdf', $response->headers->get('Content-Disposition'));
     }
-    
+
     public function testAliasCaps(): void
     {
         $pdf = \PDF::loadHtml('<h1>Test</h1>');
@@ -29,7 +29,7 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+        $this->assertEquals('attachment; filename=test.pdf', $response->headers->get('Content-Disposition'));
     }
 
     public function testFacade(): void
@@ -41,7 +41,7 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+        $this->assertEquals('attachment; filename=test.pdf', $response->headers->get('Content-Disposition'));
     }
 
     public function testDownload(): void
@@ -53,7 +53,7 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+        $this->assertEquals('attachment; filename=test.pdf', $response->headers->get('Content-Disposition'));
     }
 
     public function testStream(): void
@@ -65,7 +65,7 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertEquals('inline; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+        $this->assertEquals('inline; filename=test.pdf', $response->headers->get('Content-Disposition'));
     }
 
     public function testView(): void
@@ -77,7 +77,31 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
-        $this->assertEquals('attachment; filename="test.pdf"', $response->headers->get('Content-Disposition'));
+        $this->assertEquals('attachment; filename=test.pdf', $response->headers->get('Content-Disposition'));
+    }
+
+    public function testQuoteFilename(): void
+    {
+        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        /** @var Response $response */
+        $response = $pdf->download('Test file.pdf');
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotEmpty($response->getContent());
+        $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
+        $this->assertEquals('attachment; filename="Test file.pdf"', $response->headers->get('Content-Disposition'));
+    }
+
+    public function testFallbackFilename(): void
+    {
+        $pdf = Facade\Pdf::loadHtml('<h1>Test</h1>');
+        /** @var Response $response */
+        $response = $pdf->download('Test%file.pdf');
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotEmpty($response->getContent());
+        $this->assertEquals('application/pdf', $response->headers->get('Content-Type'));
+        $this->assertEquals("attachment; filename=Testfile.pdf; filename*=utf-8''Test%25file.pdf", $response->headers->get('Content-Disposition'));
     }
 
     public function testSaveOnDisk(): void
