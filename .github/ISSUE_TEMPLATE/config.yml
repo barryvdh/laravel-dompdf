@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report CSS/HTML Bug
+    url: https://github.com/dompdf/dompdf/issues/new?title=[CSS/HTML]:%20
+    about: 'Any issues with PDF rendering are not directly related to this package, should be reported to dompdf/dompdf'
+  - name: Report FONTs/Characters/Encoding Bug
+    url: https://github.com/dompdf/dompdf/issues/new?title=[FONTs]:%20
+    about: 'Any issues with fonts rendering are not directly related to this package, should be reported to dompdf/dompdf'
+  - name: Feature request
+    url: https://github.com/dompdf/dompdf/discussions/new?category=ideas&title=[ENHANCEMENT]:%20
+    about: 'For ideas or feature requests, start a new discussion'
+  - name: Support Questions & Other
+    url: https://github.com/dompdf/dompdf/discussions/new?category=q-a&title=[SUPPORT]:%20
+    about: 'This space is only for reporting bugs. If you have a question or need help use discussions, click:'
