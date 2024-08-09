@@ -128,7 +128,28 @@ You can use the CSS `page-break-before`/`page-break-after` properties to create 
     <h1>Page 1</h1>
     <div class="page-break"></div>
     <h1>Page 2</h1>
-    
+
+### Fonts
+
+dompdf uses a specific font file format to render them, because of this there is limited support for font families.
+
+However, dompdf allows you to convert [custom fonts](https://github.com/dompdf/dompdf/wiki/About-Fonts-and-Character-Encoding), 
+this package includes a command that makes it easy to convert your fonts, so you can use them for rendering your PDFs.
+
+Make sure that your `dompdf.defines.font_dir` directory exists.
+
+If you want to know what default fonts are bundled you can run `php artisan vendor:publish --tag=pdf-fonts`.
+
+You can convert your own fonts to the supported format, 
+You will have to register `\Barryvdh\DomPDF\Commands\ConvertFont` in `\App\Console\Kernel::$commands`.
+
+After this you'll be able to run `php artisan font:convert fontFamilyName fontFilePath`
+
+You are able to define separate font faces for Italic, Bold and Italic Bold, however, if not defined, the command will try to look for these instead.
+
+````bash
+php artisan font:convert "Font Family Name" "./storage/FontFamilyName.ttf" --italic "./storage/FontFamilyNameItalic.ttf" --bold "./storage/FontFamilyNameBold.ttf" --bold-italic "./storage/FontFamilyNameBoldItalic.ttf"
+````
 ### License
 
 This DOMPDF Wrapper for Laravel is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

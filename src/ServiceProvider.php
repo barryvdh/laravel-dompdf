@@ -77,8 +77,15 @@ class ServiceProvider extends IlluminateServiceProvider
     public function boot(): void
     {
         if (! $this->isLumen()) {
+            // Publish config
             $configPath = __DIR__ . '/../config/dompdf.php';
-            $this->publishes([$configPath => config_path('dompdf.php')], 'config');
+            $this->publishes([$configPath => config_path('dompdf.php')], ['config', 'dompdf']);
+
+            // Publish fonts cache
+            $this->publishes([
+                base_path('vendor/dompdf/dompdf/lib/fonts') => config('dompdf.defines.font_dir')
+            ],
+            ['pdf-fonts', 'dompdf']);
         }
     }
 
