@@ -193,7 +193,7 @@ class PDF
     /**
      * Save the PDF to a file
      */
-    public function save(string $filename, string $disk = null): self
+    public function save(string $filename, ?string $disk = null): self
     {
         $disk = $disk ?: $this->config->get('dompdf.disk');
 
