@@ -53,7 +53,7 @@ return [
          * This directory contains the cached font metrics for the fonts used by DOMPDF.
          * This directory can be the same as DOMPDF_FONT_DIR
          *
-         * Note: This directory must exist and be writable by the webserver process.
+         * Note: This directory must be writable by the webserver process.
          */
         'font_cache' => storage_path('fonts'),
 
