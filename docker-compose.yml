@@ -1,0 +1,15 @@
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        HOSTUID: "${HOSTUID:-1001}"
+        HOSTGID: "${HOSTGID:-1001}"
+    container_name: php74-dev
+    volumes:
+      - .:/app
+    working_dir: /app
+    tty: true
+    stdin_open: true
