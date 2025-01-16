@@ -14,15 +14,15 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "7.4.* | 8.0.*",
         "dompdf/dompdf": "^3.0",
-        "illuminate/support": "^9|^10|^11"
+        "illuminate/support": "^8|^9|^10|^11"
     },
     "require-dev": {
-        "orchestra/testbench": "^7|^8|^9",
+        "orchestra/testbench": "^6|^7|^8|^9",
         "squizlabs/php_codesniffer": "^3.5",
-        "phpro/grumphp": "^2.5",
-        "larastan/larastan": "^2.7.0"
+        "phpstan/phpstan": "^2.1"
+
     },
     "autoload": {
         "psr-4": {
@@ -52,7 +52,7 @@
         "test": "phpunit",
         "check-style": "phpcs -p --standard=psr12 src/",
         "fix-style": "phpcbf -p --standard=psr12 src/",
-        "phpstan": "phpstan analyze --memory-limit=-1"
+        "phpstan": "./vendor/bin/phpstan analyze --memory-limit=-1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -1,5 +1,4 @@
 includes:
-    - vendor/larastan/larastan/extension.neon
 
 parameters:
     reportUnmatchedIgnoredErrors: false
@@ -11,3 +10,7 @@ parameters:
         # This is a global alias that cannot be detected by Larastan.
         - '#Call to static method loadHTML\(\) on an unknown class PDF\.#'
         - '#Call to static method loadHTML\(\) on an unknown class Pdf\.#'
+        - '#Class Barryvdh\\DomPDF\\PDF has PHPDoc tag @method for method \S+\(\) parameter \#\d \$\S+ with no value type specified in iterable type array\.#'
+        - '#Class Barryvdh\\DomPDF\\PDF has PHPDoc tag @method for method \S+\(\) return type with no value type specified in iterable type array\.#'
+        - '#Class Barryvdh\\DomPDF\\Facade\\Pdf has PHPDoc tag @method for method \S+\(\) parameter \#\d \$\S+ with no value type specified in iterable type array\.#'
+        - '#Call to an undefined static method Illuminate\\Support\\Facades\\View::addLocation\(\)\.#'
