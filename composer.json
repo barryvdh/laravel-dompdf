@@ -16,7 +16,7 @@
     "require": {
         "php": "7.4.* | 8.0.*",
         "dompdf/dompdf": "^3.0",
-        "illuminate/support": "^8|^9|^10|^11"
+        "illuminate/support": "^6|^7|^8|^9|^10|^11"
     },
     "require-dev": {
         "orchestra/testbench": "^6|^7|^8|^9",
