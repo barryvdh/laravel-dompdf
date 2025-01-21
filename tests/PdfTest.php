@@ -163,4 +163,14 @@ class PdfTest extends TestCase
         $this->assertEquals('host1', $pdf1->getDomPDF()->getBaseHost());
         $this->assertEquals('host2', $pdf2->getDomPDF()->getBaseHost());
     }
+
+    public function testDataImage(): void
+    {
+        $pdf = Facade\Pdf::loadHTML('<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAEklEQVR4nGP8z4APMOGVHbHSAEEsAROxCnMTAAAAAElFTkSuQmCC" />');
+        $response = $pdf->download('test.pdf');
+
+        $this->assertInstanceOf(Response::class, $response);
+        $this->assertNotEmpty($response->getContent());
+        $this->assertEquals(1424, strlen($response->getContent()));
+    }
 }
