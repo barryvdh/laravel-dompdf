@@ -11,8 +11,26 @@ The most notable change in laravel-dompdf are the changed defaults, to be more s
  - `allowedRemoteHosts` and `artifactPathValidation` are added the the config.
 Also, support for Laravel < 9 and PHP < 8.1 is dropped.
 
-[2.2.0]
-## What's Changed
+## [3.1]
+This release updates the config for [dompdf/dompdf v3.1.0](https://github.com/dompdf/dompdf/releases/tag/v3.1.0) which contains the. following breaking URL:
+
+> **Breaking Change**
+> This release adds the "data://" scheme to the protocol validation rules. Installations that explicitly define the allowed protocols but do not include the "data://" protocol will no longer render data-URIs. This is a change from previous versions, where data-URIs were not processed through the validated rules. Installations that use the default validation rules included with Dompdf should see no impact.
+
+The update for laravel-dompdf adds this to the default config, but if you have published the config, you need to add the `data://` scheme.
+
+## [3.0]
+
+Version 3.x supports DomPDF version 3.x. See the changelog in https://github.com/dompdf/dompdf/releases/tag/v3.0.0
+
+The most notable change in laravel-dompdf are the changed defaults, to be more secure;
+
+enable_remote is now false by default. Change with caution.
+allowedRemoteHosts and artifactPathValidation are added the the config.
+Also, support for Laravel < 9 and PHP < 8.1 is dropped.
+
+## [2.2.0]
+### What's Changed
 * Fix setOptions by @cesarreyes3 in https://github.com/barryvdh/laravel-dompdf/pull/1040
 * Bump dompdf minimum to 2.0.7  by @barryvdh 
 
