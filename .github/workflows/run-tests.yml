@@ -28,7 +28,6 @@ jobs:
         exclude:
           - laravel: 12.*
             php: 8.1
-        exclude:
           - laravel: 11.*
             php: 8.1
 
@@ -47,7 +46,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer remove phpro/grumphp --no-update --dev
+          composer remove "phpro/grumphp" "larastan/larastan" --no-update --dev
           composer require "laravel/framework:${{ matrix.laravel }}" --no-update --no-progress
           composer update --${{ matrix.dependency-version }} --prefer-dist --no-progress
 
