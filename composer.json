@@ -16,13 +16,13 @@
     "require": {
         "php": "^8.1",
         "dompdf/dompdf": "^3.0",
-        "illuminate/support": "^9|^10|^11"
+        "illuminate/support": "^9|^10|^11|^12"
     },
     "require-dev": {
-        "orchestra/testbench": "^7|^8|^9",
+        "orchestra/testbench": "^7|^8|^9|^10",
         "squizlabs/php_codesniffer": "^3.5",
         "phpro/grumphp": "^2.5",
-        "larastan/larastan": "^2.7.0"
+        "larastan/larastan": "^2.7|^3.0"
     },
     "autoload": {
         "psr-4": {
