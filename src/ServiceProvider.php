@@ -4,6 +4,7 @@ namespace Barryvdh\DomPDF;
 
 use Dompdf\Dompdf;
 use Exception;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\ServiceProvider as IlluminateServiceProvider;
 
@@ -64,6 +65,8 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->app->bind('dompdf.wrapper', function ($app) {
             return new PDF($app['dompdf'], $app['config'], $app['files'], $app['view']);
         });
+
+        File::ensureDirectoryExists($app['config']->get('dompdf.options.font_cache'));
     }
 
     /**
