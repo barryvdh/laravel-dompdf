@@ -19,7 +19,7 @@
         "illuminate/support": "^9|^10|^11|^12|^13.0"
     },
     "require-dev": {
-        "orchestra/testbench": "^7|^8|^9|^10|^11.0",
+        "orchestra/testbench": "^7|^8|^9.16|^10|^11.0",
         "squizlabs/php_codesniffer": "^3.5",
         "phpro/grumphp": "^2.5",
         "larastan/larastan": "^2.7|^3.0"
