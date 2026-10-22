@@ -66,7 +66,10 @@ class ServiceProvider extends IlluminateServiceProvider
         $this->app->alias('dompdf', Dompdf::class);
 
         $this->app->bind('dompdf.wrapper', function ($app) {
-            return new PDF($app['dompdf'], $app['config'], $app['files'], $app['view']);
+            // Count before resolving Dompdf, so warnings from creating and configuring it belong to this document
+            $warningsOffset = PDF::countWarnings();
+
+            return new PDF($app['dompdf'], $app['config'], $app['files'], $app['view'], $warningsOffset);
         });
     }
 

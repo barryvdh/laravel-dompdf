@@ -66,17 +66,41 @@ class PDF
     /** @var bool */
     protected $showWarnings;
 
+    /** @var int */
+    protected $warningsOffset;
+
     /** @var string */
     protected $public_path;
 
-    public function __construct(Dompdf $dompdf, ConfigRepository $config, Filesystem $files, ViewFactory $view)
-    {
+    /**
+     * @param int|null $warningsOffset Dompdf warnings recorded before this document, defaults to the current count
+     */
+    public function __construct(
+        Dompdf $dompdf,
+        ConfigRepository $config,
+        Filesystem $files,
+        ViewFactory $view,
+        ?int $warningsOffset = null
+    ) {
         $this->dompdf = $dompdf;
         $this->config = $config;
         $this->files = $files;
         $this->view = $view;
 
         $this->showWarnings = $this->config->get('dompdf.show_warnings', false);
+
+        // Dompdf adds warnings to the global $_dompdf_warnings and never clears it,
+        // so only the warnings added after the offset belong to this document.
+        $this->warningsOffset = $warningsOffset ?? static::countWarnings();
+    }
+
+    /**
+     * Count the warnings Dompdf has recorded in the global $_dompdf_warnings
+     */
+    public static function countWarnings(): int
+    {
+        global $_dompdf_warnings;
+        return is_array($_dompdf_warnings) ? count($_dompdf_warnings) : 0;
     }
 
     /**
@@ -273,15 +297,16 @@ class PDF
 
         if ($this->showWarnings) {
             global $_dompdf_warnings;
-            if (!empty($_dompdf_warnings) && count($_dompdf_warnings)) {
+            $documentWarnings = is_array($_dompdf_warnings)
+                ? array_slice($_dompdf_warnings, $this->warningsOffset)
+                : [];
+            if (count($documentWarnings)) {
                 $warnings = '';
-                foreach ($_dompdf_warnings as $msg) {
+                foreach ($documentWarnings as $msg) {
                     $warnings .= $msg . "\n";
                 }
                 // $warnings .= $this->dompdf->get_canvas()->get_cpdf()->messages;
-                if (!empty($warnings)) {
-                    throw new Exception($warnings);
-                }
+                throw new Exception($warnings);
             }
         }
         $this->rendered = true;

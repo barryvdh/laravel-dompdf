@@ -164,6 +164,44 @@ class PdfTest extends TestCase
         $this->assertEquals('host2', $pdf2->getDomPDF()->getBaseHost());
     }
 
+    public function testWarnings(): void
+    {
+        $pdf = Facade\Pdf::loadHTML('<div style="box-shadow: 0 1px 2px #999">Test</div>')->setWarnings(true);
+
+        $this->assertStringContainsString("'box_shadow' is not a recognized CSS property.", $this->outputWarnings($pdf));
+        // Rendering again still reports the warnings of this document
+        $this->assertStringContainsString("'box_shadow' is not a recognized CSS property.", $this->outputWarnings($pdf));
+    }
+
+    public function testWarningsFromDompdfCalls(): void
+    {
+        $css = '.shadow { box-shadow: 0 1px 2px #999 }';
+
+        $pdf = Facade\Pdf::setWarnings(true);
+        $pdf->getDomPDF()->getCss()->load_css($css);
+        $pdf->loadHTML('<div class="shadow">Test</div>');
+        $this->assertStringContainsString("'box_shadow' is not a recognized CSS property.", $this->outputWarnings($pdf));
+
+        $pdf = Facade\Pdf::loadHTML('<div class="shadow">Test</div>')->setWarnings(true);
+        $pdf->getDomPDF()->getCss()->load_css($css);
+        $this->assertStringContainsString("'box_shadow' is not a recognized CSS property.", $this->outputWarnings($pdf));
+
+        app()->resolving('dompdf', function (\Dompdf\Dompdf $dompdf) use ($css) {
+            $dompdf->getCss()->load_css($css);
+        });
+        $pdf = Facade\Pdf::loadHTML('<div class="shadow">Test</div>')->setWarnings(true);
+        $this->assertStringContainsString("'box_shadow' is not a recognized CSS property.", $this->outputWarnings($pdf));
+    }
+
+    public function testWarningsFromPreviousDocuments(): void
+    {
+        $pdf = Facade\Pdf::loadHTML('<div style="box-shadow: 0 1px 2px #999">Test</div>');
+        $this->assertNotEmpty($pdf->output());
+
+        $pdf = Facade\Pdf::loadHTML('<h1>Test</h1>')->setWarnings(true);
+        $this->assertStringNotContainsString('box_shadow', $this->outputWarnings($pdf));
+    }
+
     public function testDataImage(): void
     {
         $pdf = Facade\Pdf::loadHTML('<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAIAAAACUFjqAAAAEklEQVR4nGP8z4APMOGVHbHSAEEsAROxCnMTAAAAAElFTkSuQmCC" />');
@@ -172,5 +210,25 @@ class PdfTest extends TestCase
         $this->assertInstanceOf(Response::class, $response);
         $this->assertNotEmpty($response->getContent());
         $this->assertEquals(1424, strlen((string) $response->getContent()));
+    }
+
+    /**
+     * Render the PDF and return the message of the exception PDF::render() throws for its warnings, or ''.
+     * With the lowest dependencies on PHP 8.2+, every document has deprecation warnings of its own.
+     */
+    private function outputWarnings(\Barryvdh\DomPDF\PDF $pdf): string
+    {
+        try {
+            $pdf->output();
+        } catch (\Exception $e) {
+            $pdfFile = (new \ReflectionClass(\Barryvdh\DomPDF\PDF::class))->getFileName();
+            if (get_class($e) !== \Exception::class || $e->getFile() !== $pdfFile) {
+                throw $e;
+            }
+
+            return $e->getMessage();
+        }
+
+        return '';
     }
 }
